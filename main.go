@@ -18,7 +18,7 @@ func Init() *gorm.DB {
 		fmt.Print("loi")
 	}
 
-	db.Migrator().CreateTable(&models.Account{}, &models.User{}, &models.Transaction{})
+	db.AutoMigrate(&models.Account{}, &models.User{}, &models.Transaction{})
 	return db
 }
 func main() {

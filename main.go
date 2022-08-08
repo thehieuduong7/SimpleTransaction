@@ -7,6 +7,7 @@ import (
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 	"gorm.io/gorm/logger"
 )
 
@@ -22,20 +23,31 @@ func Init() *gorm.DB {
 		fmt.Print("loi")
 	}
 
-	db.Migrator().CreateTable(&models.User{}, &models.Account{}, &models.Transaction{})
+	db.AutoMigrate(&models.User{}, &models.Account{}, &models.Transaction{})
 	return db
 }
 func main() {
-	Init()
+	db := Init()
 	// user := models.User{Name: "Jinzhu", Phone_number: "123423", Email: "19923"}
 	// db.Create(&user) // pass pointer of data to Create
 	// fmt.Print(user.User_id)
 	// fmt.Print(user.Accounts)
 
-	// account := models.Account{
-	// 	User_id: 2, Surplus: -4,
-	// }
-	// db.Create(&account) // pass pointer of data to Create
+	// user2 := models.User{}
+	// db.Find(&user2, 2)
+	// account := models.Account{}
+	//var user models.User
+	users := models.User{}
+	var accounts []models.Account
+	//fmt.Printf("%+v\n", db.Joins(clause.Associations).Find(&user2, 2)) // Print with Variable Name
+	fmt.Printf("%+v\n", db.Preload(clause.Associations).Find(&users, 2)) // Print with Variable Name
+	fmt.Printf("%+v\n", users)                                           // Print with Variable Name
+
+	fmt.Print(accounts)
+
+	// acc2 := models.Account{User_id: user2.User_id, Surplus: 400}
+	// db.Create(&acc2)          // pass pointer of data to Create
+	// fmt.Printf("%+v\n", acc2) // Print with Variable Name
 
 	// fmt.Print(account.Account_number)
 	// fmt.Print(account.Is_active)

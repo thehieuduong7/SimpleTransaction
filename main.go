@@ -7,8 +7,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"internBE.com/storage"
-
-	"internBE.com/pkg/seeds"
 )
 
 func main() {
@@ -26,11 +24,7 @@ func main() {
 	}
 
 	router := gin.New()
-	for _, seed := range seeds.All() {
-		if err := seed.Run(storage.Connect(config)); err != nil {
-			log.Fatalf("Running seed '%s', failed with error: %s", seed.Name, err)
-		}
-	}
+	storage.Connect(config)
 	// call router
 	// UserRoute(router)
 	router.Run(":8000")

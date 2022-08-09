@@ -4,7 +4,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"internBE.com/storage"
 )
@@ -23,10 +22,10 @@ func main() {
 		log.Fatalf("Error loading .env file")
 	}
 
-	router := gin.New()
+	// router := gin.New()
 	storage.Connect(config)
 	// call router
 	// UserRoute(router)
-	router.Run(":8000")
+	// router.Run(":8000")
 
 }

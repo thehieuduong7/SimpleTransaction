@@ -7,7 +7,7 @@ import (
 )
 
 func CreateUser(db *gorm.DB, name string, phone_number string, email string) error {
-	return db.Create(&models.User{Name: name, Phone_number: phone_number, Email: email}).Error
+	return db.Create(&models.User{Name: name, PhoneNumber: phone_number, Email: email}).Error
 }
 
 // Account_Number string  `json:"account_number"`

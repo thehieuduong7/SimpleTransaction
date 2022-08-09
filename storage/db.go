@@ -8,6 +8,7 @@ import (
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 type Config struct {
@@ -27,7 +28,10 @@ func Connect(config *Config) *gorm.DB {
 		config.Password,
 		config.DBName,
 	)
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Info), // Log câu lệnh sql trong console
+
+	})
 	if err != nil {
 		log.Panic(err)
 	}

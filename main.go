@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	"internBE.com/routes"
 	"internBE.com/storage"
 )
 
@@ -26,7 +27,7 @@ func main() {
 	router := gin.New()
 	storage.Connect(config)
 	// call router
-	// UserRoute(router)
+	routes.UserRoute(router)
 	router.Run(":8000")
 
 }

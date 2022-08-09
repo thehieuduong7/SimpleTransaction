@@ -5,11 +5,11 @@ import (
 )
 
 type User struct {
-	UserID      int       `json:"user_id"  gorm:"primaryKey;autoIncrement;unique"`
+	UserId      int       `json:"user_id"  gorm:"primaryKey;autoIncrement;unique"`
 	Name        string    `json:"name" gorm:"NOT NULL"`
 	PhoneNumber string    `json:"phone_number"`
 	Email       string    `json:"email"`
-	Accounts    []Account `gorm:"foreignKey:UserID;references:UserID;constraint:OnUpdate:CASCADE"`
+	Accounts    []Account `gorm:"foreignKey:UserId;references:UserId;constraint:OnUpdate:CASCADE"`
 }
 
 type Account struct {

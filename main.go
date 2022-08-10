@@ -1,13 +1,11 @@
 package main
 
 import (
+	"github.com/gin-gonic/gin"
 	"log"
 	"os"
 
-	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	models "internBE.com/model"
-	"internBE.com/respository"
 	"internBE.com/storage"
 )
 
@@ -25,15 +23,15 @@ func main() {
 		log.Fatalf("Error loading .env file")
 	}
 
-	type CreateBook struct {
-		Name string `json:"name" binding:"required"`
-	}
-
 	router := gin.New()
 	storage.Connect(config)
 
-	user := &models.User{Name: "hello", PhoneNumber: "1231441", Email: "hello@example.com"}
-	respository.UserRepository.CreateBook(user)
+	// var DB *gorm.DB
+	// var test repository.UserRepository
+	// test = repository.NewUserRepository(DB)
+	// user := models.User{Name: "hello", PhoneNumber: "1231441", Email: "hello@example.com"}
+
+	// test.CreateUsers(user)
 
 	// call router
 	// routes.UserRoute(router)

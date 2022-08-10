@@ -2,7 +2,7 @@ package controller
 
 import (
 	models "internBE.com/model"
-	"internBE.com/respository"
+	"internBE.com/repository"
 )
 
 type AccountController interface {
@@ -13,10 +13,10 @@ type AccountController interface {
 	GetAccountById(id int) models.Account
 }
 type accountController struct {
-	AccountRepo respository.AccountRepository
+	AccountRepo repository.AccountRepository
 }
 
-func NewAccountController(repo respository.AccountRepository) AccountController {
+func NewAccountController(repo repository.AccountRepository) AccountController {
 	return &accountController{AccountRepo: repo}
 }
 

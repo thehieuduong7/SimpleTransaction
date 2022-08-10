@@ -6,11 +6,11 @@ import (
 )
 
 type UserRepository interface {
-	// CreateBook(b models.User) models.User
-	UpdateUsers(b models.User) models.User
-	DeleteUserById(b models.User)
+	CreateBook(user models.User) models.User
+	UpdateUsers(user models.User) models.User
+	DeleteUserById(userId uint) models.User
 	GetAllUsers() []models.User
-	FindUserByID(UserId uint) *models.User
+	FindUserByID(userId uint) models.User
 }
 type UserConnect struct {
 	DB *gorm.DB
@@ -21,39 +21,35 @@ func PUserConnect(DB *gorm.DB) UserConnect {
 }
 
 // create
-// func (p *UserConnect) CreateUsers(b models.User) (models.User, error) {
-// 	user := &models.User{}
+func (p *UserConnect) CreateUsers(models.User) models.User {
+	user := models.User{}
 
-// 	if err := p.DB.Create(&user).Error; err != nil {
-// 		return nil, err
-// 	}
-
-// 	return b, nil
-// }
-func (p *UserConnect) GetAllUsers() []models.User {
-	var users []models.User
-	p.DB.Preload("Account").Find(&users)
-	return users
-}
-
-func (c UserConnect) FindUserByID(id uint) (*models.User, error) {
-	var user models.User
-	if err := c.DB.Preload("Account").First(&user, id).Error; err != nil {
-		return nil, err
-	}
-
-	return &user, nil
-}
-
-func (p *UserConnect) UpdateUsers(user models.User) models.User {
-	p.DB.Save(&user)
-	p.DB.Preload("Account").Find(&user)
+	p.DB.Create(&user)
 
 	return user
 }
 
-func (p *UserConnect) DeleteUserById(id int) error {
-	if err := p.DB.Delete(models.User{}, id).Error; err != nil {
+func (p *UserConnect) GetAllUsers() []models.User {
+	var users []models.User
+	p.DB.Find(&users)
+	return users
+}
+
+func (c *UserConnect) FindUserByID(userId uint) models.User {
+	var user models.User
+	c.DB.First(&user, userId)
+
+	return user
+}
+
+func (p *UserConnect) UpdateUsers(user models.User) models.User {
+	p.DB.Save(&user).Find(&user)
+	// p.DB.Preload("Account").
+	return user
+}
+
+func (p *UserConnect) DeleteUserById(userId int) error {
+	if err := p.DB.Delete(models.User{}, userId).Error; err != nil {
 		return err
 	}
 

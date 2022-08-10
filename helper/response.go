@@ -11,7 +11,7 @@ type Response struct {
 }
 
 //EmptyObj object is used when data doesnt want to be null on json
-type EmptyObj struct{}
+type EmptyOb struct{}
 
 //BuildResponse method is to inject data value to dynamic success response
 func BuildResponse(status bool, message string, data interface{}) Response {

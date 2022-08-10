@@ -6,7 +6,7 @@ import (
 )
 
 type AccountRepository interface {
-	CreatAccount(account *models.Account) *models.Account
+	CreateAccount(account *models.Account) *models.Account
 	UpdateAccount(account *models.Account) models.Account
 	DeleteAccount(id int)
 	GetAccountByUserId(id int) []models.Account
@@ -44,7 +44,7 @@ func (db *accountConnection) GetAccountById(id int) models.Account {
 	return account
 }
 
-func (db *accountConnection) CreatAccount(account *models.Account) *models.Account {
+func (db *accountConnection) CreateAccount(account *models.Account) *models.Account {
 	db.connection.Create(account)
 	return account
 

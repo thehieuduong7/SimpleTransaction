@@ -36,6 +36,10 @@ func Connect(config *Config) *gorm.DB {
 		log.Panic(err)
 	}
 	db.AutoMigrate(&models.User{}, &models.Account{}, &models.Transaction{})
-
+	DB = db
 	return db
+}
+
+func GetDB() *gorm.DB {
+	return DB
 }

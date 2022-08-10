@@ -1,0 +1,33 @@
+# Repository
+
+## TransactionRepository
+
+    define interface
+    func:
+
+    1. Create(trans models.Transaction) (\*models.Transaction, error)
+    // insert into history transaction and update surplus money account
+    2. GetAllTransRelatedNumberAcc(AccountNo int, limit int) (_[]models.Transaction, error)
+    // get top ? _ from transactions where account_no_rsc = ? or account_no_des = ?
+    3. GetTransSendedByNumberAcc(AccountNo int, limit int) (\*[]models.Transaction, error)
+    // get top ? from transactions where account_no_rsc = ?
+    4. GetTransRevievedByNumberAcc(AccountNo int, limit int) (\*[]models.Transaction, error)
+    // get top ? from transactions where account_no_des = ?
+
+## TransactionRepositoryImpl
+
+    define implement
+    func:
+    more...
+
+    1. func NewTransactionRepositoryImpl() TransactionRepository
+    // constructor
+    2. func (t \*transactionRepositoryImpl) isAccountActive(AccNo int) (bool, error)
+    // private, chack account active
+
+## UT
+
+    var transRepo repository.TransactionRepository = repository.NewTransactionRepositoryImpl()
+    trans := model.Transaction{AccountNoRsc: 1, AccountNoDes: 2, Amount: 10, Message: "cam on 10k"}
+    fmt.Print(transRepo.Create(trans))
+    fmt.Print(transRepo.GetTransRevievedByNumberAcc(2, -1))

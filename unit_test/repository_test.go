@@ -21,7 +21,7 @@ var (
 
 func TestAccountRepository(t *testing.T) {
 	t.Run("test_create_account", func(t *testing.T) {
-		repo.CreatAccount(&models.Account{UserId: 1, Surplus: 100})
+		repo.CreateAccount(&models.Account{UserId: 1, Surplus: 100})
 	})
 	t.Run("test_get_account_by_id", func(t *testing.T) {
 		repo.GetAccountByUserId(1)

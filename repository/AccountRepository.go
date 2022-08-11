@@ -34,13 +34,13 @@ func (db *accountConnection) DeleteAccount(id int) {
 
 func (db *accountConnection) GetAccountByUserId(id int) []models.Account {
 	var account []models.Account
-	db.connection.Find(&account, "user_id = ?", id)
+	db.connection.Find(&account, "user_id = ? AND is_active= ? ", id, true)
 	return account
 }
 
 func (db *accountConnection) GetAccountById(id int) models.Account {
 	var account models.Account
-	db.connection.Find(&account, "account_number = ?", id)
+	db.connection.Find(&account, "account_number = ? AND is_active= ? ", id, true)
 	return account
 }
 

@@ -14,7 +14,7 @@ type User struct {
 
 type Account struct {
 	AccountNumber           int           `json:"account_no" gorm:"primaryKey;autoIncrement;unique"`
-	UserId                  int           `gorm:"NOT NULL"`
+	UserId                  int           `gorm:"NOT NULL" json:"user_id"`
 	Surplus                 float64       `json:"surplus" gorm:" check:surplus >= 0"`
 	CreateAt                time.Time     `json:"create_at" gorm:"autoCreateTime:true"`
 	IsActive                bool          `json:"is_active" gorm:"type:bool;default:true"`

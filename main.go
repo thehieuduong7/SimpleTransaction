@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"internBE.com/routes"
 	"log"
 	"os"
 
@@ -25,16 +26,8 @@ func main() {
 
 	router := gin.New()
 	storage.Connect(config)
+	routes.AccountRoute(router)
 
-	// var DB *gorm.DB
-	// var test repository.UserRepository
-	// test = repository.NewUserRepository(DB)
-	// user := models.User{Name: "hello", PhoneNumber: "1231441", Email: "hello@example.com"}
-
-	// test.CreateUsers(user)
-
-	// call router
-	// routes.UserRoute(router)
 	router.Run(":8000")
 
 }

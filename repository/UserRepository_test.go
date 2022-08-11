@@ -3,14 +3,11 @@ package repository
 import (
 	"testing"
 
-	"github.com/joho/godotenv"
 	models "internBE.com/model"
 	"internBE.com/storage"
 )
 
 var (
-	err = godotenv.Load(".env")
-
 	config = &storage.Config{
 		Host:     "localhost",
 		Port:     "5432",

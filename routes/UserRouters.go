@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	db             *gorm.DB                  = storage.Connect()
+	db             *gorm.DB                  = storage.GetDB()
 	userRepository repository.UserRepository = repository.NewUserRepository(db)
 	userService    service.UserService       = service.NewUserService(userRepository)
 	userController controller.UserController = controller.NewUserController(userService)

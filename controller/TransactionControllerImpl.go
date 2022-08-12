@@ -19,7 +19,7 @@ func (t *transactionControllerImpl) Create(ctx *gin.Context) {
 	var reqTransaction dto.CreateTransactionRequest
 	err := ctx.ShouldBindJSON(&reqTransaction)
 	if err != nil {
-		response.Fail(ctx, 500, "invalid format json")
+		response.Fail(ctx, 500, "invalid format json "+err.Error())
 		return
 	}
 	resTransaction, err := t.transactionService.Create(reqTransaction)

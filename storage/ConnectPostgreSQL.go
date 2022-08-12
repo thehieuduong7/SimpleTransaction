@@ -53,5 +53,8 @@ func Connect() *gorm.DB {
 }
 
 func GetDB() *gorm.DB {
+	if DB == nil {
+		return Connect()
+	}
 	return DB
 }

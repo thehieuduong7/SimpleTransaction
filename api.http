@@ -3,7 +3,7 @@ content-type: application/json
 
 
 {
-    "account_no_rsc": 1,
+    "account_no_rsc": 3,
     "account_no_des": 2,
     "message": "cam on 10k",
      "amount": 10
@@ -11,11 +11,11 @@ content-type: application/json
 
 
 ###
-POST http://localhost:8000/transaction/AllSendFrom HTTP/1.1
+POST http://localhost:8000/transaction/MyTrans HTTP/1.1
 content-type: application/json
 
 
 {
-    "account_no_rsc": 1,
+    "account_no_rsc": 2,
     "limit":-1
 }

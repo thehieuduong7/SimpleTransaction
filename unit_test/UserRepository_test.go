@@ -1,24 +1,20 @@
-package repository
+package unit_test
 
 import (
 	"testing"
 
 	models "internBE.com/model"
+	"internBE.com/repository"
 	"internBE.com/storage"
 )
 
 var (
-	config = &storage.Config{
-		Host:     "localhost",
-		Port:     "5432",
-		User:     "postgres",
-		Password: "123",
-		DBName:   "demo1"}
+	test repository.UserRepository = repository.NewUserRepository(storage.Connect())
 )
 
 func Test(t *testing.T) {
 
-	var test UserRepository = NewUserRepository(storage.Connect(config))
+	//  var test UserRepository = NewUserRepository(storage.Connect())
 
 	t.Run("createUsers", func(t *testing.T) {
 		user := models.User{Name: "hello", PhoneNumber: "1231441", Email: "hello@example.com"}
@@ -41,7 +37,7 @@ func Test(t *testing.T) {
 
 	t.Run("DeleteUserById", func(t *testing.T) {
 
-		test.DeleteUserById(1)
+		test.DeleteUser(1)
 	})
 
 	// call router

@@ -1,8 +1,107 @@
 package controller
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+	"strconv"
 
-func UserController(c *gin.Engine) {
-	// c.String(200, "Hello world!å")
+	"github.com/gin-gonic/gin"
+	"internBE.com/dto"
+	"internBE.com/helper"
+	models "internBE.com/model"
+	"internBE.com/service"
+)
 
+type UserController interface {
+	CreateUsers(context *gin.Context)
+	UpdateUsers(context *gin.Context)
+	DeleteUserById(context *gin.Context)
+	GetAllUsers(context *gin.Context)
+	GetUserByID(context *gin.Context)
+}
+
+type userController struct {
+	userService service.UserService
+}
+
+func (controller *userController) CreateUsers(context *gin.Context) {
+	//TODO implement me
+	var userCreateDTO dto.UserCreateDTO
+	err := context.ShouldBind(&userCreateDTO)
+	if err != nil {
+		res := helper.BuildErrorResponse("Failed to process request", err.Error(), helper.EmptyObj{})
+		context.JSONP(400, res)
+		return
+	}
+	//users := models.User{}
+	//newUsers := models.User{
+	//	//UserId:     user.(model.User).ID,
+	//	Name:        userCreateDTO.Name,
+	//	PhoneNumber: userCreateDTO.PhoneNumber,
+	//	Email:       userCreateDTO.Email}
+	user := controller.userService.CreateUsersService(userCreateDTO)
+	res := helper.BuildResponse(true, "Successful!", user)
+	context.JSONP(200, res)
+}
+
+func (controller *userController) UpdateUsers(context *gin.Context) {
+	//TODO implement me
+	//panic("implement me")
+	var userUpdateDTO dto.UserUpdateDTO
+	err := context.ShouldBind(&userUpdateDTO)
+	if err != nil {
+		res := helper.BuildErrorResponse("Failed to process", err.Error(), helper.EmptyObj{})
+		context.JSONP(400, res)
+		return
+	}
+	//userUpdateDTO.ID = userId
+	user := controller.userService.UpdateUsersService(userUpdateDTO)
+	res := helper.BuildResponse(true, "Successful!", user)
+	context.JSONP(200, res)
+}
+
+func (controller *userController) DeleteUserById(context *gin.Context) {
+	//TODO implement me
+	//var user models.User
+	userId, err := strconv.ParseUint(context.Param("id"), 0, 0)
+	if err != nil {
+		response := helper.BuildErrorResponse("Failed tou get id", "No param id were found", helper.EmptyObj{})
+		context.JSON(http.StatusBadRequest, response)
+	}
+	//user.UserId = id
+	controller.userService.DeleteUserService(int(userId))
+	res := helper.BuildResponse(true, "Deleted", helper.EmptyObj{})
+	context.JSON(http.StatusOK, res)
+}
+
+func (controller *userController) GetAllUsers(context *gin.Context) {
+	//TODO implement me
+	var users []models.User = controller.userService.GetAllUsersService()
+	res := helper.BuildResponse(true, "Successful", users)
+	context.JSONP(202, res)
+	//panic("implement me")
+}
+
+func (controller *userController) GetUserByID(context *gin.Context) {
+	//TODO implement me
+	userId := context.Param("user_id")
+	newUserId, err := strconv.Atoi(userId)
+	if err != nil {
+		res := helper.BuildErrorResponse("No param id was found", err.Error(), helper.EmptyObj{})
+		context.AbortWithStatusJSON(http.StatusBadRequest, res)
+		return
+	}
+	user := controller.userService.GetUserByIDService(int(newUserId))
+
+	res := helper.BuildResponse(true, "OK", user)
+	context.JSON(http.StatusOK, res)
+	//
+	//} else {
+	//	res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
+	//	context.JSON(http.StatusNotFound, res)
+	//}
+}
+
+func NewUserController(userServ service.UserService) UserController {
+
+	return &userController{userService: userServ}
 }

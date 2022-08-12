@@ -3,20 +3,19 @@ package unit_test
 import (
 	"testing"
 
-	"internBE.com/constant"
 	models "internBE.com/model"
 	"internBE.com/repository"
 	"internBE.com/storage"
 )
 
 var (
-	config = &storage.Config{
-		Host:     constant.Host,
-		Port:     constant.Port,
-		Password: constant.Password,
-		User:     constant.User,
-		DBName:   constant.DBName}
-	repo repository.AccountRepository = repository.NewAccountRepository(storage.Connect(config))
+	// config = &storage.Config{
+	// 	Host:     constant.Host,
+	// 	Port:     constant.Port,
+	// 	Password: constant.Password,
+	// 	User:     constant.User,
+	// 	DBName:   constant.DBName}
+	repo repository.AccountRepository = repository.NewAccountRepository(storage.Connect())
 )
 
 func TestAccountRepository(t *testing.T) {

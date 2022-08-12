@@ -8,47 +8,52 @@ import (
 type UserRepository interface {
 	CreateUsers(user models.User) models.User
 	UpdateUsers(user models.User) models.User
-	DeleteUserById(userId uint) models.User
+
 	GetAllUsers() []models.User
-	FindUserByID(userId uint) models.User
+	FindUserByID(userId int) models.User
+	Save(user models.User) models.User
+	DeleteUser(userId int) models.User
 }
 type userConnection struct {
-	DB *gorm.DB
+	connection *gorm.DB
 }
 
 func NewUserRepository(dbConn *gorm.DB) UserRepository {
-	return &userConnection{DB: dbConn}
+	return &userConnection{connection: dbConn}
 }
 
-// create
-func (p *userConnection) CreateUsers(user models.User) models.User {
-	p.DB.Save(&user)
-	p.DB.Create(&user)
-
+func (db *userConnection) CreateUsers(user models.User) models.User {
+	db.connection.Save(&user).Create(&user)
 	return user
 }
 
-func (p *userConnection) GetAllUsers() []models.User {
+func (db *userConnection) GetAllUsers() []models.User {
 	var users []models.User
-	p.DB.Find(&users)
+	db.connection.Find(&users)
 	return users
 }
 
-func (c *userConnection) FindUserByID(userId uint) models.User {
-	var user models.User
-	c.DB.Where("id = ?", user.UserId).Take(&user)
-	return user
+func (db *userConnection) FindUserByID(userId int) models.User {
+	var users models.User
+	db.connection.Find(&users, "user_id=? AND is_active= ?", userId)
+
+	return users
 }
 
-func (p *userConnection) UpdateUsers(user models.User) models.User {
-	p.DB.Save(&user).Where("name=?", user.Name).Updates(user)
+func (db *userConnection) UpdateUsers(user models.User) models.User {
+	db.connection.Save(&user).Where("user_id=? AND is_active= ?", user.UserId).Updates(user)
 	// p.DB.Preload("Account").
 	return user
 }
 
-func (p *userConnection) DeleteUserById(userId uint) models.User {
+func (db *userConnection) DeleteUser(userId int) models.User {
 	var user models.User
-	p.DB.Delete(&user, userId)
+	db.connection.Delete(user, userId)
 	return user
+}
 
+func (db *userConnection) Save(user models.User) models.User {
+	db.connection.Save(&user)
+
+	return user
 }

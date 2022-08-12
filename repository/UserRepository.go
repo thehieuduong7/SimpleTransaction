@@ -41,7 +41,7 @@ func (db *userConnection) FindUserByID(userId int) models.User {
 }
 
 func (db *userConnection) UpdateUsers(user models.User) models.User {
-	db.connection.Save(&user).Where("user_id = ?", user.UserId).Updates(&user)
+	db.connection.Save(&user).Where(user, "user_id = ?", user.UserId).Updates(&user)
 	// p.DB.Preload("Account").
 	return user
 }

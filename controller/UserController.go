@@ -32,20 +32,13 @@ func (controller *userController) CreateUsers(context *gin.Context) {
 		context.JSONP(400, res)
 		return
 	}
-	//users := models.User{}
-	//newUsers := models.User{
-	//	//UserId:     user.(model.User).ID,
-	//	Name:        userCreateDTO.Name,
-	//	PhoneNumber: userCreateDTO.PhoneNumber,
-	//	Email:       userCreateDTO.Email}
 	user := controller.userService.CreateUsersService(userCreateDTO)
 	res := helper.BuildResponse(true, "Successful!", user)
 	context.JSONP(200, res)
 }
 
 func (controller *userController) UpdateUsers(context *gin.Context) {
-	//TODO implement me
-	//panic("implement me")
+
 	var userUpdateDTO dto.UserUpdateDTO
 	err := context.ShouldBind(&userUpdateDTO)
 	if err != nil {
@@ -53,7 +46,6 @@ func (controller *userController) UpdateUsers(context *gin.Context) {
 		context.JSONP(400, res)
 		return
 	}
-	//userUpdateDTO.ID = userId
 	user := controller.userService.UpdateUsersService(userUpdateDTO)
 	res := helper.BuildResponse(true, "Successful!", user)
 	context.JSONP(200, res)

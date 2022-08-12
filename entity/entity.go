@@ -5,7 +5,7 @@ import (
 )
 
 type User struct {
-	UserId      int    `gorm:"column:user_id;primaryKey;autoIncrement;unique"`
+	UserId      int    `json:"user_id" gorm:"column:user_id;primaryKey;autoIncrement;unique"`
 	Name        string `gorm:"NOT NULL"`
 	PhoneNumber string
 	Email       string
@@ -24,7 +24,7 @@ type Account struct {
 
 type Transaction struct {
 	TransactionId int       `gorm:"column:transaction_id;primaryKey;autoIncrement"`
-	AccountNoRsc  int       `gorm:"NOT NULL; check:AccountNoRsc <> AccountNoDes"`
+	AccountNoRsc  int       `gorm:"NOT NULL; check:account_no_rsc <> account_no_des"`
 	AccountNoDes  int       `gorm:"NOT NULL"`
 	Message       string    `gorm:"size:500"`
 	Amount        float64   `gorm:"check:amount > 0;NOT NULL"`

@@ -11,5 +11,5 @@
     }
 
     func Fail(ctx *gin.Context, httpStatus int, message string) {
-        // respone success with ping 200
+        // respone success with ping
     }

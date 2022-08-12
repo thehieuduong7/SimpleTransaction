@@ -3,9 +3,9 @@ content-type: application/json
 
 
 {
-    "account_no_rsc": 3,
-    "account_no_des": 2,
-    "message": "cam on 10k",
+    "account_no_rsc": 2,
+    "account_no_des": 3,
+    "message": "from 2 -> 3",
      "amount": 10
 }
 
@@ -19,3 +19,40 @@ content-type: application/json
     "account_no_rsc": 2,
     "limit":-1
 }
+
+###
+POST http://localhost:8000/transaction/TransSendFrom HTTP/1.1
+content-type: application/json
+
+
+{
+    "account_no_rsc": 2,
+    "limit":-1
+}
+
+###
+POST http://localhost:8000/transaction/TransRecieveBy HTTP/1.1
+content-type: application/json
+
+
+{
+    "account_no_rsc": 2,
+    "limit":-1
+}
+
+###
+POST http://localhost:8000/transaction/TransRecieveBy HTTP/1.1
+content-type: application/json
+
+
+{
+    "account_no_rsc": 2,
+    "account_no_des": 3,
+    "limit":-1
+}
+
+###
+GET  http://localhost:8000/api/account/2 HTTP/1.1
+
+###
+

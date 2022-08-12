@@ -18,31 +18,31 @@ func NewAccountService(repo repository.AccountRepository) AccountService {
 	return &accountService{AccountRepo: repo}
 }
 
-func (controller *accountService) CreateAccount(account *dto.AccountDtoToInsert) {
+func (service *accountService) CreateAccount(account *dto.AccountDtoToInsert) {
 	var accountEntity = entity.Account{}
 	err := smapping.FillStruct(&accountEntity, smapping.MapFields(account))
 	if err != nil {
 		log.Fatalf("Failed map %v: ", err)
 	}
-	accountEntity2 := controller.AccountRepo.CreateAccount(&accountEntity)
+	accountEntity2 := service.AccountRepo.CreateAccount(&accountEntity)
 	account.SetAccountNumber(accountEntity2.AccountNumber)
 }
 
-func (controller *accountService) UpdateAccount(account *dto.AccountDtoToInsert) {
+func (service *accountService) UpdateAccount(account *dto.AccountDtoToInsert) {
 	var accountEntity = entity.Account{}
 	err := smapping.FillStruct(&accountEntity, smapping.MapFields(account))
 	if err != nil {
 		log.Fatalf("Failed map %v: ", err)
 	}
-	controller.AccountRepo.UpdateAccount(&accountEntity)
+	service.AccountRepo.UpdateAccount(&accountEntity)
 }
 
-func (controller *accountService) DeleteAccount(id int) {
-	controller.AccountRepo.DeleteAccount(id)
+func (service *accountService) DeleteAccount(id int) {
+	service.AccountRepo.DeleteAccount(id)
 }
 
-func (controller *accountService) GetAccountByUserId(id int) ([]dto.AccountDto, error) {
-	account := controller.AccountRepo.GetAccountByUserId(id)
+func (service *accountService) GetAccountByUserId(id int) ([]dto.AccountDto, error) {
+	account := service.AccountRepo.GetAccountByUserId(id)
 	var accountDtos []dto.AccountDto
 	var accountDto dto.AccountDto
 	for _, acc := range account {
@@ -59,8 +59,8 @@ func (controller *accountService) GetAccountByUserId(id int) ([]dto.AccountDto, 
 	return accountDtos, err
 }
 
-func (controller *accountService) GetAccountById(id int) (dto.AccountDto, error) {
-	account := controller.AccountRepo.GetAccountById(id)
+func (service *accountService) GetAccountById(id int) (dto.AccountDto, error) {
+	account := service.AccountRepo.GetAccountById(id)
 	var accountDto dto.AccountDto
 	err := smapping.FillStruct(&accountDto, smapping.MapFields(&account))
 	if err != nil {

@@ -62,7 +62,7 @@ func (controller *userController) UpdateUsers(context *gin.Context) {
 func (controller *userController) DeleteUserById(context *gin.Context) {
 	//TODO implement me
 	//var user models.User
-	userId, err := strconv.ParseUint(context.Param("id"), 0, 0)
+	userId, err := strconv.ParseUint(context.Param("user_id"), 0, 0)
 	if err != nil {
 		response := helper.BuildErrorResponse("Failed tou get id", "No param id were found", helper.EmptyObj{})
 		context.JSON(http.StatusBadRequest, response)

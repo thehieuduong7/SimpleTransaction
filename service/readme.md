@@ -7,12 +7,16 @@
             // handle insert transaction
         }
         GetAllTransRelatedNumberAcc(dto.GetMyTransactionRequest) ([]dto.GetMyTransactionReponse, error){
-            // get all my transaction
+            // get my transaction
         }
         GetTransSendedByNumberAcc(dto.GetMyTransactionRequest) ([]dto.GetMyTransactionReponse, error){
-            // get all transaction I sended
+            // get transaction I sended
         }
         GetTransRevievedByNumberAcc(dto.GetMyTransactionRequest) ([]dto.GetMyTransactionReponse, error){
-            // get all transaction I recieved
+            // get transaction I recieved
         }
+        GetTransFromTo(dto.GetTransactionFromToRequest) ([]dto.GetMyTransactionReponse, error){
+             // get transaction from to
+        }
+
     }

@@ -24,7 +24,7 @@ type Account struct {
 
 type Transaction struct {
 	TransactionId int       `gorm:"column:transaction_id;primaryKey;autoIncrement"`
-	AccountNoRsc  int       `gorm:"NOT NULL"`
+	AccountNoRsc  int       `gorm:"NOT NULL; check:AccountNoRsc <> AccountNoDes"`
 	AccountNoDes  int       `gorm:"NOT NULL"`
 	Message       string    `gorm:"size:500"`
 	Amount        float64   `gorm:"check:amount > 0;NOT NULL"`

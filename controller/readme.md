@@ -11,16 +11,21 @@
         GetAllTransRelatedNumberAcc(ctx *gin.Context){
             // method: Post
             // content_data: MyTransRequest
-            // description: get all my transaction
+            // description: get my transaction
         }
         GetTransSendedByNumberAcc(ctx *gin.Context){
             // method: Post
             // content_data: MyTransRequest
-            // description: get all transaction I sended
+            // description: get transaction I sended
         }
         GetTransRevievedByNumberAcc(ctx *gin.Context){
             // method: Post
             // content_data: MyTransRequest
-            // description: get all transaction I recieved
+            // description: get transaction I recieved
+        }
+        GetTransFromTo(ctx *gin.Context){
+            // method: Post
+            // content_data: MyTransFromToRequest
+            // description: get transaction from to
         }
     }

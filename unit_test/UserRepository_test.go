@@ -3,7 +3,7 @@ package unit_test
 import (
 	"testing"
 
-	models "internBE.com/model"
+	models "internBE.com/entity"
 	"internBE.com/repository"
 	"internBE.com/storage"
 )

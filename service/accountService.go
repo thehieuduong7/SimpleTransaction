@@ -2,11 +2,12 @@ package service
 
 import (
 	"errors"
+	"log"
+
 	"github.com/mashingan/smapping"
 	"internBE.com/dto"
-	models "internBE.com/model"
+	models "internBE.com/entity"
 	"internBE.com/repository"
-	"log"
 )
 
 type AccountService interface {

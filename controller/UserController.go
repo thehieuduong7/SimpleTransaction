@@ -6,8 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"internBE.com/dto"
+	models "internBE.com/entity"
 	"internBE.com/helper"
-	models "internBE.com/model"
 	"internBE.com/service"
 )
 
@@ -32,12 +32,6 @@ func (controller *userController) CreateUsers(context *gin.Context) {
 		context.JSONP(400, res)
 		return
 	}
-	//users := models.User{}
-	//newUsers := models.User{
-	//	//UserId:     user.(model.User).ID,
-	//	Name:        userCreateDTO.Name,
-	//	PhoneNumber: userCreateDTO.PhoneNumber,
-	//	Email:       userCreateDTO.Email}
 	user := controller.userService.CreateUsersService(userCreateDTO)
 	res := helper.BuildResponse(true, "Successful!", user)
 	context.JSONP(200, res)
@@ -62,7 +56,7 @@ func (controller *userController) UpdateUsers(context *gin.Context) {
 func (controller *userController) DeleteUserById(context *gin.Context) {
 	//TODO implement me
 	//var user models.User
-	userId, err := strconv.ParseUint(context.Param("id"), 0, 0)
+	userId, err := strconv.ParseUint(context.Param("user_id"), 0, 0)
 	if err != nil {
 		response := helper.BuildErrorResponse("Failed tou get id", "No param id were found", helper.EmptyObj{})
 		context.JSON(http.StatusBadRequest, response)
@@ -94,11 +88,7 @@ func (controller *userController) GetUserByID(context *gin.Context) {
 
 	res := helper.BuildResponse(true, "OK", user)
 	context.JSON(http.StatusOK, res)
-	//
-	//} else {
-	//	res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
-	//	context.JSON(http.StatusNotFound, res)
-	//}
+
 }
 
 func NewUserController(userServ service.UserService) UserController {

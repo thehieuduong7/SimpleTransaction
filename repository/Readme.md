@@ -5,13 +5,13 @@
     define interface
     func:
 
-    1. Create(trans models.Transaction) (\*models.Transaction, error)
+    1. Create(trans model.Transaction) (\*model.Transaction, error)
     // insert into history transaction and update surplus money account
-    2. GetAllTransRelatedNumberAcc(AccountNo int, limit int) (_[]models.Transaction, error)
+    2. GetAllTransRelatedNumberAcc(AccountNo int, limit int) (_[]model.Transaction, error)
     // get top ? _ from transactions where account_no_rsc = ? or account_no_des = ?
-    3. GetTransSendedByNumberAcc(AccountNo int, limit int) (\*[]models.Transaction, error)
+    3. GetTransSendedByNumberAcc(AccountNo int, limit int) (\*[]model.Transaction, error)
     // get top ? from transactions where account_no_rsc = ?
-    4. GetTransRevievedByNumberAcc(AccountNo int, limit int) (\*[]models.Transaction, error)
+    4. GetTransRevievedByNumberAcc(AccountNo int, limit int) (\*[]model.Transaction, error)
     // get top ? from transactions where account_no_des = ?
 
 ## TransactionRepositoryImpl

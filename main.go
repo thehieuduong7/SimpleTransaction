@@ -4,7 +4,12 @@ import (
 	"log"
 	"os"
 
+	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	"internBE.com/controller"
+	"internBE.com/repository"
+	"internBE.com/router"
+	"internBE.com/service"
 	"internBE.com/storage"
 )
 
@@ -21,11 +26,17 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error loading .env file")
 	}
-
-	// router := gin.New()
 	storage.Connect(config)
-	// call router
-	// UserRoute(router)
-	// router.Run(":8000")
 
+	res := repository.NewTransactionRepositoryImpl()
+	ser := service.NewTransactionServiceImpl(&res)
+	con := controller.NewTransactionControllerImpl(&ser)
+
+	r := gin.New()
+	// call router
+	router.CollectTransactionRoute(r, con)
+	r.Run(":8000")
+	// trans := entity.Transaction{AccountNoRsc: 1, AccountNoDes: 2, Amount: 10, Message: "cam on 10k"}
+	// fmt.Print(res.Create(&trans))
+	// t.Log(transRepo.Create(trans))
 }

@@ -13,6 +13,6 @@ func main() {
 	storage.Connect()
 	routes.AccountRoute(router)
 	routes.UserRoute(router)
+	routes.TransactionRoute(router)
 	router.Run(":8000")
-
 }

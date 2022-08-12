@@ -23,11 +23,4 @@
     1. func NewTransactionRepositoryImpl() TransactionRepository
     // constructor
     2. func (t \*transactionRepositoryImpl) isAccountActive(AccNo int) (bool, error)
-    // private, chack account active
-
-## UT
-
-    var transRepo repository.TransactionRepository = repository.NewTransactionRepositoryImpl()
-    trans := model.Transaction{AccountNoRsc: 1, AccountNoDes: 2, Amount: 10, Message: "cam on 10k"}
-    fmt.Print(transRepo.Create(trans))
-    fmt.Print(transRepo.GetTransRevievedByNumberAcc(2, -1))
+    // private, check account active

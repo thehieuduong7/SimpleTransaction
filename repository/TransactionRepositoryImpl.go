@@ -6,15 +6,14 @@ import (
 
 	"gorm.io/gorm"
 	"internBE.com/entity"
-	"internBE.com/storage"
 )
 
 type transactionRepositoryImpl struct {
 	DB *gorm.DB
 }
 
-func NewTransactionRepositoryImpl() TransactionRepository {
-	return &transactionRepositoryImpl{DB: storage.GetDB()}
+func NewTransactionRepositoryImpl(db *gorm.DB) TransactionRepository {
+	return &transactionRepositoryImpl{DB: db}
 }
 func (t *transactionRepositoryImpl) isAccountActive(AccNo int) (bool, error) {
 	user := entity.Account{}
@@ -63,7 +62,10 @@ func (t *transactionRepositoryImpl) Create(trans *entity.Transaction) error {
 		tx.Rollback()
 		return err
 	}
-	tx.Commit()
+	if err := tx.Commit().Error; err != nil {
+		tx.Rollback()
+		return err
+	}
 	return nil
 }
 

@@ -6,17 +6,10 @@ import (
 
 	"github.com/mashingan/smapping"
 	"internBE.com/dto"
-	models "internBE.com/entity"
+	"internBE.com/entity"
 	"internBE.com/repository"
 )
 
-type AccountService interface {
-	CreateAccount(account *dto.AccountDtoToInsert)
-	UpdateAccount(account *dto.AccountDtoToInsert)
-	DeleteAccount(id int)
-	GetAccountByUserId(id int) ([]dto.AccountDto, error)
-	GetAccountById(id int) (dto.AccountDto, error)
-}
 type accountService struct {
 	AccountRepo repository.AccountRepository
 }
@@ -26,7 +19,7 @@ func NewAccountService(repo repository.AccountRepository) AccountService {
 }
 
 func (controller *accountService) CreateAccount(account *dto.AccountDtoToInsert) {
-	var accountEntity models.Account
+	var accountEntity = entity.Account{}
 	err := smapping.FillStruct(&accountEntity, smapping.MapFields(account))
 	if err != nil {
 		log.Fatalf("Failed map %v: ", err)
@@ -36,7 +29,7 @@ func (controller *accountService) CreateAccount(account *dto.AccountDtoToInsert)
 }
 
 func (controller *accountService) UpdateAccount(account *dto.AccountDtoToInsert) {
-	var accountEntity = models.Account{}
+	var accountEntity = entity.Account{}
 	err := smapping.FillStruct(&accountEntity, smapping.MapFields(account))
 	if err != nil {
 		log.Fatalf("Failed map %v: ", err)

@@ -3,19 +3,13 @@ package unit_test
 import (
 	"testing"
 
-	models "internBE.com/model"
+	models "internBE.com/entity"
 	"internBE.com/repository"
 	"internBE.com/storage"
 )
 
 var (
-	// config = &storage.Config{
-	// 	Host:     constant.Host,
-	// 	Port:     constant.Port,
-	// 	Password: constant.Password,
-	// 	User:     constant.User,
-	// 	DBName:   constant.DBName}
-	repo repository.AccountRepository = repository.NewAccountRepository(storage.Connect())
+	repo repository.AccountRepository = repository.NewAccountRepository(storage.GetDB())
 )
 
 func TestAccountRepository(t *testing.T) {
@@ -32,6 +26,9 @@ func TestAccountRepository(t *testing.T) {
 		if account.IsActive == true {
 			t.Fail()
 		}
+	})
+	t.Run("get by id ", func(t *testing.T) {
+		repo.GetAccountById(6)
 	})
 
 }

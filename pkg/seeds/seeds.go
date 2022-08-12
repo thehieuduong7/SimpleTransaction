@@ -12,7 +12,7 @@ func All() []seed.Seed {
 		seed.Seed{
 			Name: "CreateUser",
 			Run: func(db *gorm.DB) error {
-				for i := 0; i < 10; i++ {
+				for i := 0; i < 30; i++ {
 					CreateUser(db, gofakeit.Name(), gofakeit.Phone(), gofakeit.Email())
 				}
 				return nil

@@ -81,3 +81,20 @@ func (t *transactionServiceImpl) GetTransRevievedByNumberAcc(req dto.GetMyTransa
 	}
 	return responses, err
 }
+
+func (t *transactionServiceImpl) GetTransFromTo(req dto.GetTransactionFromToRequest) (responses []dto.GetMyTransactionReponse, err error) {
+	listTrans, err := t.TransactionRepository.GetTransFromTo(req.AccountNoRsc, req.AccountNoDes, req.Limit)
+	if err != nil {
+		return nil, err
+	}
+	for _, trans := range listTrans {
+		responses = append(responses, dto.GetMyTransactionReponse{
+			AccountNoRsc: trans.AccountNoRsc,
+			AccountNoDes: trans.AccountNoDes,
+			Message:      trans.Message,
+			Amount:       trans.Amount,
+			CreateAt:     trans.CreateAt,
+		})
+	}
+	return responses, err
+}

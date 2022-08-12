@@ -10,4 +10,5 @@ type TransactionRepository interface {
 	GetAllTransRelatedNumberAcc(AccountNo int, limit int) ([]entity.Transaction, error)
 	GetTransSendedByNumberAcc(AccountNo int, limit int) ([]entity.Transaction, error)
 	GetTransRevievedByNumberAcc(AccountNo int, limit int) ([]entity.Transaction, error)
+	GetTransFromTo(AccountNoRsc int, AccountNoDes int, limit int) ([]entity.Transaction, error)
 }

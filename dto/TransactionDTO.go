@@ -19,6 +19,13 @@ type GetMyTransactionRequest struct {
 	AccountNoRsc int `json:"account_no_rsc"`
 	Limit        int `json:"limit"`
 }
+
+type GetTransactionFromToRequest struct {
+	AccountNoRsc int `json:"account_no_rsc"`
+	AccountNoDes int `json:"account_no_des"`
+	Limit        int `json:"limit"`
+}
+
 type GetMyTransactionReponse struct {
 	AccountNoRsc int       `json:"account_no_rsc"`
 	AccountNoDes int       `json:"account_no_des"`

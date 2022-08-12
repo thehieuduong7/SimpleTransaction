@@ -62,6 +62,8 @@ func (t *transactionRepositoryImpl) Create(trans *entity.Transaction) error {
 		tx.Rollback()
 		return err
 	}
+
+	//commit
 	if err := tx.Commit().Error; err != nil {
 		tx.Rollback()
 		return err
@@ -69,7 +71,7 @@ func (t *transactionRepositoryImpl) Create(trans *entity.Transaction) error {
 	return nil
 }
 
-func (t *transactionRepositoryImpl) GetAllTransRelatedNumberAcc(AccountNo int, limit int) ([]entity.Transaction, error) {
+func (t *transactionRepositoryImpl) GetAllTransRelatedNumberAcc(AccountNo int, limit int) (arrTrans []entity.Transaction, err error) {
 	if checkActive, err := t.isAccountActive(AccountNo); err != nil {
 		return nil, err
 	} else if !checkActive {
@@ -77,19 +79,18 @@ func (t *transactionRepositoryImpl) GetAllTransRelatedNumberAcc(AccountNo int, l
 		return nil, errors.New(msg)
 	}
 
-	var trans []entity.Transaction
 	result := t.DB.Where(entity.Transaction{AccountNoRsc: AccountNo}).
 		Or(entity.Transaction{AccountNoDes: AccountNo}).
 		Order("transaction_id desc").
-		Limit(limit).Find(&trans)
+		Limit(limit).Find(&arrTrans)
 	if result.Error != nil {
 		return nil, result.Error
 	}
-	return trans, nil
+	return arrTrans, nil
 }
 
 // list trans send to
-func (t *transactionRepositoryImpl) GetTransSendedByNumberAcc(AccountNo int, limit int) ([]entity.Transaction, error) {
+func (t *transactionRepositoryImpl) GetTransSendedByNumberAcc(AccountNo int, limit int) (arrTrans []entity.Transaction, err error) {
 	if checkActive, err := t.isAccountActive(AccountNo); err != nil {
 		return nil, err
 	} else if !checkActive {
@@ -97,24 +98,45 @@ func (t *transactionRepositoryImpl) GetTransSendedByNumberAcc(AccountNo int, lim
 		return nil, errors.New(msg)
 	}
 
-	var trans []entity.Transaction
-	result := t.DB.Where(entity.Transaction{AccountNoRsc: AccountNo}).Order("transaction_id desc").Limit(limit).Find(&trans)
+	result := t.DB.Where(entity.Transaction{AccountNoRsc: AccountNo}).Order("transaction_id desc").Limit(limit).Find(&arrTrans)
 	if result.Error != nil {
 		return nil, result.Error
 	}
-	return trans, nil
+	return arrTrans, nil
 }
-func (t *transactionRepositoryImpl) GetTransRevievedByNumberAcc(AccountNo int, limit int) ([]entity.Transaction, error) {
+func (t *transactionRepositoryImpl) GetTransRevievedByNumberAcc(AccountNo int, limit int) (arrTrans []entity.Transaction, err error) {
 	if checkActive, err := t.isAccountActive(AccountNo); err != nil {
 		return nil, err
 	} else if !checkActive {
 		msg := fmt.Sprintf("Account no %d is not active", AccountNo)
 		return nil, errors.New(msg)
 	}
-	var trans []entity.Transaction
-	result := t.DB.Where(entity.Transaction{AccountNoDes: AccountNo}).Order("transaction_id desc").Limit(limit).Find(&trans)
+	result := t.DB.Where(entity.Transaction{AccountNoDes: AccountNo}).Order("transaction_id desc").Limit(limit).Find(&arrTrans)
 	if result.Error != nil {
 		return nil, result.Error
 	}
-	return trans, nil
+	return arrTrans, nil
+}
+
+func (t *transactionRepositoryImpl) GetTransFromTo(AccountNoRsc int, AccountNoDes int, limit int) (arrTrans []entity.Transaction, err error) {
+	if checkActive, err := t.isAccountActive(AccountNoRsc); err != nil {
+		return nil, err
+	} else if !checkActive {
+		msg := fmt.Sprintf("Account no %d is not active", AccountNoRsc)
+		return nil, errors.New(msg)
+	}
+
+	if checkActive, err := t.isAccountActive(AccountNoDes); err != nil {
+		return nil, err
+	} else if !checkActive {
+		msg := fmt.Sprintf("Account no %d is not active", AccountNoDes)
+		return nil, errors.New(msg)
+	}
+	result := t.DB.Where(entity.Transaction{AccountNoRsc: AccountNoRsc, AccountNoDes: AccountNoDes}).
+		Order("transaction_id desc").Limit(limit).Find(&arrTrans)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return arrTrans, nil
+
 }

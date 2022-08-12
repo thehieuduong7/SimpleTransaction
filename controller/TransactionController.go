@@ -7,4 +7,5 @@ type TransactionController interface {
 	GetAllTransRelatedNumberAcc(ctx *gin.Context)
 	GetTransSendedByNumberAcc(ctx *gin.Context)
 	GetTransRevievedByNumberAcc(ctx *gin.Context)
+	GetTransFromTo(ctx *gin.Context)
 }

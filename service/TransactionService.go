@@ -9,4 +9,5 @@ type TransactionService interface {
 	GetAllTransRelatedNumberAcc(dto.GetMyTransactionRequest) ([]dto.GetMyTransactionReponse, error)
 	GetTransSendedByNumberAcc(dto.GetMyTransactionRequest) ([]dto.GetMyTransactionReponse, error)
 	GetTransRevievedByNumberAcc(dto.GetMyTransactionRequest) ([]dto.GetMyTransactionReponse, error)
+	GetTransFromTo(dto.GetTransactionFromToRequest) ([]dto.GetMyTransactionReponse, error)
 }

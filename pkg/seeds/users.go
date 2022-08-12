@@ -3,7 +3,7 @@ package seeds
 
 import (
 	"gorm.io/gorm"
-	models "internBE.com/model"
+	models "internBE.com/entity"
 )
 
 func CreateUser(db *gorm.DB, name string, phone_number string, email string) error {

@@ -1,0 +1,21 @@
+POST http://localhost:8000/transaction HTTP/1.1
+content-type: application/json
+
+
+{
+    "account_no_rsc": 1,
+    "account_no_des": 2,
+    "message": "cam on 10k",
+     "amount": 10
+}
+
+
+###
+POST http://localhost:8000/transaction/AllSendFrom HTTP/1.1
+content-type: application/json
+
+
+{
+    "account_no_rsc": 1,
+    "limit":-1
+}

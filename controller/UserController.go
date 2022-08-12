@@ -6,8 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"internBE.com/dto"
+	models "internBE.com/entity"
 	"internBE.com/helper"
-	models "internBE.com/model"
 	"internBE.com/service"
 )
 
@@ -86,11 +86,7 @@ func (controller *userController) GetUserByID(context *gin.Context) {
 
 	res := helper.BuildResponse(true, "OK", user)
 	context.JSON(http.StatusOK, res)
-	//
-	//} else {
-	//	res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
-	//	context.JSON(http.StatusNotFound, res)
-	//}
+
 }
 
 func NewUserController(userServ service.UserService) UserController {

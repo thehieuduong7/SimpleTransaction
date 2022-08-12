@@ -6,11 +6,10 @@ import (
 	"log"
 	"os"
 
-	models "internBE.com/model"
-
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"internBE.com/entity"
 )
 
 //type Config struct {
@@ -48,7 +47,11 @@ func Connect() *gorm.DB {
 	if err != nil {
 		log.Panic(err)
 	}
-	db.AutoMigrate(&models.User{}, &models.Account{}, &models.Transaction{})
-
+	db.AutoMigrate(&entity.User{}, &entity.Account{}, &entity.Transaction{})
+	DB = db
 	return db
+}
+
+func GetDB() *gorm.DB {
+	return DB
 }

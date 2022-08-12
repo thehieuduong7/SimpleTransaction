@@ -2,14 +2,12 @@ package storage
 
 import (
 	"fmt"
-	"github.com/joho/godotenv"
-	"log"
-	"os"
-
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"internBE.com/constant"
 	"internBE.com/entity"
+	"log"
 )
 
 //type Config struct {
@@ -23,16 +21,12 @@ import (
 var DB *gorm.DB
 
 func Connect() *gorm.DB {
-	errEnv := godotenv.Load()
-	if errEnv != nil {
-		panic("Failed to load env file")
-	}
 
-	Host := os.Getenv("DBHost")
-	Port := os.Getenv("DBPort")
-	User := os.Getenv("DBUser")
-	Password := os.Getenv("DBPassword")
-	DBName := os.Getenv("DBName")
+	Host := constant.Host
+	Port := constant.Port
+	User := constant.User
+	Password := constant.Password
+	DBName := constant.DBName
 
 	dsn := fmt.Sprintf("host=%s port=%s user=%s  password=%s dbname=%s sslmode=disable",
 		Host, Port,
@@ -53,5 +47,8 @@ func Connect() *gorm.DB {
 }
 
 func GetDB() *gorm.DB {
+	if DB == nil {
+		return Connect()
+	}
 	return DB
 }

@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	repoAccount    repository.AccountRepository = repository.NewAccountRepository(storage.Connect())
+	repoAccount    repository.AccountRepository = repository.NewAccountRepository(storage.GetDB())
 	serviceRepo    service.AccountService       = service.NewAccountService(repoAccount)
 	controllerRepo controller.AccountController = controller.NewAccountController(serviceRepo)
 )

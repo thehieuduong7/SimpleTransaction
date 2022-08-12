@@ -13,11 +13,11 @@ type User struct {
 }
 
 type Account struct {
-	AccountNumber           int           `gorm:"column:account_no;primaryKey;autoIncrement;unique"`
-	UserId                  int           `gorm:"NOT NULL"`
-	Surplus                 float64       `gorm:"check:surplus >= 0"`
-	CreateAt                time.Time     `gorm:"autoCreateTime:true"`
-	IsActive                bool          `gorm:"type:bool;default:true"`
+	AccountNumber           int           `json:"account_no" gorm:"primaryKey;autoIncrement;unique"`
+	UserId                  int           `gorm:"NOT NULL" json:"user_id"`
+	Surplus                 float64       `json:"surplus" gorm:" check:surplus >= 0"`
+	CreateAt                time.Time     `json:"create_at" gorm:"autoCreateTime:true"`
+	IsActive                bool          `json:"is_active" gorm:"type:bool;default:true"`
 	TransactionResources    []Transaction `gorm:"foreignKey:AccountNoRsc;references:AccountNumber;constraint:OnUpdate:CASCADE"`
 	TransactionDestinations []Transaction `gorm:"foreignKey:AccountNoDes;references:AccountNumber;constraint:OnUpdate:CASCADE"`
 }

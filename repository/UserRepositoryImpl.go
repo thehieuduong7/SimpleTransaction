@@ -31,14 +31,14 @@ func (db *userConnection) GetAllUsers() []models.User {
 func (db *userConnection) FindUserByID(userId int) models.User {
 	var users models.User
 
-	db.connection.Find(&users, "user_id=? AND is_active= ?", userId)
+	db.connection.Find(&users, userId)
 
 	return users
 }
 
 func (db *userConnection) UpdateUsers(user models.User) models.User {
 
-	db.connection.Save(&user).Where("user_id=? AND is_active= ?", user.UserId).Updates(user)
+	db.connection.Save(&user).Where(user.UserId).Updates(user)
 	return user
 }
 

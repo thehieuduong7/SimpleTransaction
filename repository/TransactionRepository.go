@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"time"
+
 	"internBE.com/entity"
 )
 
@@ -11,4 +13,5 @@ type TransactionRepository interface {
 	GetTransSendedByNumberAcc(AccountNo int, limit int) ([]entity.Transaction, error)
 	GetTransRevievedByNumberAcc(AccountNo int, limit int) ([]entity.Transaction, error)
 	GetTransFromTo(AccountNoRsc int, AccountNoDes int, limit int) ([]entity.Transaction, error)
+	GetTransDateToDate(AccountNoRsc int, AccountNoDes int, dateStart time.Time, dateEnd time.Time, limit int) ([]entity.Transaction, error)
 }

@@ -3,10 +3,10 @@ content-type: application/json
 
 
 {
-    "account_no_rsc": 2,
-    "account_no_des": 3,
-    "message": "from 2 -> 3",
-     "amount": 10
+    "account_no_rsc":3,
+    "account_no_des": 2,
+    "message": "from 3 to 2 4",
+    "amount": 4
 }
 
 
@@ -27,16 +27,19 @@ content-type: application/json
 
 {
     "account_no_rsc": 2,
-    "limit":-1
+    "limit":10
 }
 
 ###
-POST http://localhost:8000/transaction/TransRecieveBy HTTP/1.1
+POST http://localhost:8000/transaction/GetTransDateToDate HTTP/1.1
 content-type: application/json
 
 
 {
     "account_no_rsc": 2,
+    "account_no_des": 3,
+    "time_start" :"2022-08-01 20:41:14",
+    "time_end" :"2022-08-14 20:41:14",
     "limit":-1
 }
 

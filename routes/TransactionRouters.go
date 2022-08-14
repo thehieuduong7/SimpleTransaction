@@ -21,5 +21,7 @@ func TransactionRoute(r *gin.Engine) *gin.Engine {
 	transRouter.POST("/TransSendFrom", transController.GetTransSendedByNumberAcc)
 	transRouter.POST("/TransRecieveBy", transController.GetTransRevievedByNumberAcc)
 	transRouter.POST("/TransFromTo", transController.GetTransFromTo)
+	transRouter.POST("/GetTransDateToDate", transController.GetTransDateToDate)
+
 	return r
 }

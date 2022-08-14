@@ -19,7 +19,7 @@ func (t *transactionControllerImpl) Create(ctx *gin.Context) {
 	var reqTransaction dto.CreateTransactionRequest
 	err := ctx.ShouldBindJSON(&reqTransaction)
 	if err != nil {
-		response.Fail(ctx, 500, "invalid format json "+err.Error())
+		response.Fail(ctx, 500, err.Error())
 		return
 	}
 	resTransaction, err := t.transactionService.Create(reqTransaction)
@@ -33,7 +33,7 @@ func (t *transactionControllerImpl) GetAllTransRelatedNumberAcc(ctx *gin.Context
 	var reqTransaction dto.GetMyTransactionRequest
 	err := ctx.ShouldBindJSON(&reqTransaction)
 	if err != nil {
-		response.Fail(ctx, 500, "invalid format json")
+		response.Fail(ctx, 500, err.Error())
 		return
 	}
 	resTransactions, err := t.transactionService.GetAllTransRelatedNumberAcc(reqTransaction)
@@ -47,7 +47,7 @@ func (t *transactionControllerImpl) GetTransSendedByNumberAcc(ctx *gin.Context) 
 	var reqTransaction dto.GetMyTransactionRequest
 	err := ctx.ShouldBindJSON(&reqTransaction)
 	if err != nil {
-		response.Fail(ctx, 500, "invalid format json")
+		response.Fail(ctx, 500, err.Error())
 		return
 	}
 	resTransactions, err := t.transactionService.GetTransSendedByNumberAcc(reqTransaction)
@@ -61,7 +61,7 @@ func (t *transactionControllerImpl) GetTransRevievedByNumberAcc(ctx *gin.Context
 	var reqTransaction dto.GetMyTransactionRequest
 	err := ctx.ShouldBindJSON(&reqTransaction)
 	if err != nil {
-		response.Fail(ctx, 500, "invalid format json")
+		response.Fail(ctx, 500, err.Error())
 		return
 	}
 	resTransactions, err := t.transactionService.GetTransRevievedByNumberAcc(reqTransaction)
@@ -75,7 +75,7 @@ func (t *transactionControllerImpl) GetTransFromTo(ctx *gin.Context) {
 	var reqTransaction dto.GetTransactionFromToRequest
 	err := ctx.ShouldBindJSON(&reqTransaction)
 	if err != nil {
-		response.Fail(ctx, 500, "invalid format json")
+		response.Fail(ctx, 500, err.Error())
 		return
 	}
 	resTransactions, err := t.transactionService.GetTransFromTo(reqTransaction)
@@ -84,4 +84,18 @@ func (t *transactionControllerImpl) GetTransFromTo(ctx *gin.Context) {
 		return
 	}
 	response.Success(ctx, "GetTransFromTo", resTransactions)
+}
+func (t *transactionControllerImpl) GetTransDateToDate(ctx *gin.Context) {
+	var reqTransaction dto.GetTransactionFromToTimeRequest
+	err := ctx.ShouldBindJSON(&reqTransaction)
+	if err != nil {
+		response.Fail(ctx, 500, err.Error())
+		return
+	}
+	resTransactions, err := t.transactionService.GetTransDateToDate(reqTransaction)
+	if err != nil {
+		response.Fail(ctx, 500, err.Error())
+		return
+	}
+	response.Success(ctx, "GetTransDateToDate", resTransactions)
 }

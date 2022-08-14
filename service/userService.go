@@ -6,9 +6,9 @@ import (
 )
 
 type UserService interface {
-	CreateUsersService(user dto.UserCreateDTO)
+	CreateUsersService(user dto.UserCreateDTO) models.User
 	UpdateUsersService(user dto.UserUpdateDTO)
 	DeleteUserService(userId int)
 	GetAllUsersService() []models.User
-	GetUserByIDService(userId int) models.User
+	GetUserByIDService(userId int) (dto.UserDTO, error)
 }

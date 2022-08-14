@@ -14,7 +14,7 @@ func NewUserRepository(dbConn *gorm.DB) UserRepository {
 }
 
 func (db *userConnection) CreateUsers(user models.User) models.User {
-	db.connection.Save(&user).Create(&user)
+	db.connection.Save(&user).Find(&user)
 
 	return user
 }

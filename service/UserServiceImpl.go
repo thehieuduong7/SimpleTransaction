@@ -20,14 +20,14 @@ func NewUserService(userRepo repository.UserRepository) *userService {
 	}
 }
 
-func (service *userService) CreateUsersService(user dto.UserCreateDTO) {
+func (service *userService) CreateUsersService(user dto.UserCreateDTO) models.User {
 	users := models.User{}
 	err := smapping.FillStruct(&users, smapping.MapFields(&user))
 	if err != nil {
 		log.Fatalf("Failed map %v: ", err)
 	}
-	service.UserRepository.CreateUsers(users)
-
+	res := service.UserRepository.CreateUsers(users)
+	return res
 }
 
 func (service *userService) UpdateUsersService(user dto.UserUpdateDTO) {
@@ -48,6 +48,18 @@ func (service *userService) DeleteUserService(userId int) {
 func (service *userService) GetAllUsersService() []models.User {
 	return service.UserRepository.GetAllUsers()
 }
-func (service *userService) GetUserByIDService(userId int) models.User {
-	return service.UserRepository.FindUserByID(userId)
+
+// func (service *userService) GetUserByIDService(userId int) models.User {
+// 	return service.UserRepository.FindUserByID(userId)
+// }
+
+func (service *userService) GetUserByIDService(userId int) (dto.UserDTO, error) {
+	user := service.UserRepository.FindUserByID(userId)
+	var userDto dto.UserDTO
+	err := smapping.FillStruct(&userDto, smapping.MapFields(&user))
+	if err != nil {
+		log.Fatalf("Failed map %v: ", err)
+	}
+	var err1 = userDto.CheckExisted()
+	return userDto, err1
 }

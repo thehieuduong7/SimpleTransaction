@@ -22,8 +22,10 @@ func (controller *userController) CreateUsers(context *gin.Context) {
 		response.Fail(context, 500, "invalid format json "+err.Error())
 		return
 	}
-	controller.userService.CreateUsersService(userCreateDTO)
-	response.Success(context, "successfully", nil)
+
+	result := controller.userService.CreateUsersService(userCreateDTO)
+	response.Success(context, "successfully", result)
+	// context.JSON(http.StatusCreated, response)
 }
 
 func (controller *userController) UpdateUsers(context *gin.Context) {
@@ -65,9 +67,12 @@ func (controller *userController) GetUserByID(context *gin.Context) {
 		response.Fail(context, 500, "No User ID found "+err.Error())
 		return
 	}
-	user := controller.userService.GetUserByIDService(int(newUserId))
-
-	response.Success(context, "successfully", user)
+	var account, err1 = controller.userService.GetUserByIDService(int(newUserId))
+	if err1 != nil {
+		response.Fail(context, 500, "not found")
+	} else {
+		response.Success(context, "successfully", account)
+	}
 
 }
 

@@ -6,8 +6,8 @@ import (
 	models "internBE.com/entity"
 )
 
-func CreateUser(dbConn *gorm.DB, name string, email string, phoneNumber string) error {
-	return dbConn.Create(&models.User{Name: name, Email: email, PhoneNumber: phoneNumber}).Error
+func CreateUser(dbConn *gorm.DB, name string, phoneNumber string, email string) error {
+	return dbConn.Create(&models.User{Name: name, PhoneNumber: phoneNumber, Email: email}).Error
 }
 func CreateAccount(dbConn *gorm.DB, userId int, surplus float64) error {
 

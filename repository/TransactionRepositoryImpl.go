@@ -17,7 +17,7 @@ func NewTransactionRepositoryImpl(db *gorm.DB) TransactionRepository {
 }
 func (t *transactionRepositoryImpl) isAccountActive(AccNo int) (bool, error) {
 	user := entity.Account{}
-	result := t.DB.First(&user, AccNo)
+	result := t.DB.Find(&user, AccNo)
 	if result.Error != nil {
 		return false, result.Error
 	}
@@ -29,7 +29,7 @@ func (t *transactionRepositoryImpl) Create(trans *entity.Transaction) error {
 
 	//minus money sender
 	sender := entity.Account{}
-	if err := tx.First(&sender, trans.AccountNoRsc).Error; err != nil {
+	if err := tx.Find(&sender, trans.AccountNoRsc).Error; err != nil {
 		tx.Rollback()
 		return err
 	} else if !sender.IsActive {
@@ -44,7 +44,7 @@ func (t *transactionRepositoryImpl) Create(trans *entity.Transaction) error {
 
 	// plus money for
 	reciver := entity.Account{}
-	if err := tx.First(&reciver, trans.AccountNoDes).Error; err != nil {
+	if err := tx.Find(&reciver, trans.AccountNoDes).Error; err != nil {
 		tx.Rollback()
 		return err
 	} else if !reciver.IsActive {

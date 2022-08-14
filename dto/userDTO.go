@@ -10,6 +10,12 @@ type UserUpdateDTO struct {
 
 type UserCreateDTO struct {
 	Name        string `json:"name"  binding:"required"`
-	Email       string `json:"email" binding:"required"`
-	PhoneNumber string `json:"phone_number" binding:"required"`
+	PhoneNumber string `json:"phone_number"  binding:"required"`
+	Email       string `json:"email"  binding:"required"`
+}
+
+type UserDTO struct {
+	Name        string `json:"name"  binding:"required"`
+	PhoneNumber string `json:"phone_number"  binding:"required"`
+	Email       string `json:"email"  binding:"required"`
 }

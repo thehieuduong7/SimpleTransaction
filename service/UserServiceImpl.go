@@ -20,24 +20,24 @@ func NewUserService(userRepo repository.UserRepository) *userService {
 	}
 }
 
-func (service *userService) CreateUsersService(user dto.UserCreateDTO) models.User {
+func (service *userService) CreateUsersService(user dto.UserCreateDTO) {
 	users := models.User{}
 	err := smapping.FillStruct(&users, smapping.MapFields(&user))
 	if err != nil {
 		log.Fatalf("Failed map %v: ", err)
 	}
-	res := service.UserRepository.CreateUsers(users)
-	return res
+	service.UserRepository.CreateUsers(users)
+
 }
 
-func (service *userService) UpdateUsersService(user dto.UserUpdateDTO) models.User {
-	userToUpdate := models.User{}
-	err := smapping.FillStruct(&userToUpdate, smapping.MapFields(&user))
+func (service *userService) UpdateUsersService(user dto.UserUpdateDTO) {
+	users := models.User{}
+	err := smapping.FillStruct(&users, smapping.MapFields(&user))
 	if err != nil {
 		log.Fatalf("Failed map %v:", err)
 	}
-	updatedUser := service.UserRepository.UpdateUsers(userToUpdate)
-	return updatedUser
+	service.UserRepository.UpdateUsers(users)
+
 }
 
 func (service *userService) DeleteUserService(userId int) {

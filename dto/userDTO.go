@@ -21,6 +21,7 @@ type UserDTO struct {
 	Name        string `json:"name"  binding:"required"`
 	PhoneNumber string `json:"phone_number"  binding:"required"`
 	Email       string `json:"email"  binding:"required"`
+	Account     []AccountDto
 }
 
 func (user *UserDTO) CheckExisted() error {
@@ -29,4 +30,8 @@ func (user *UserDTO) CheckExisted() error {
 		return errors.New("not existed this User ")
 	}
 	return nil
+}
+
+func (user *UserDTO) SetAccount(accounts []AccountDto) {
+	user.Account = accounts
 }

@@ -1,6 +1,7 @@
 package service
 
 import (
+	"internBE.com/storage"
 	"log"
 
 	"github.com/mashingan/smapping"
@@ -8,6 +9,11 @@ import (
 	models "internBE.com/entity"
 
 	"internBE.com/repository"
+)
+
+var (
+	repoAccount repository.AccountRepository = repository.NewAccountRepository(storage.GetDB())
+	serviceRepo AccountService               = NewAccountService(repoAccount)
 )
 
 type userService struct {
@@ -45,8 +51,24 @@ func (service *userService) DeleteUserService(userId int) {
 	service.UserRepository.DeleteUser(userId)
 }
 
-func (service *userService) GetAllUsersService() []models.User {
-	return service.UserRepository.GetAllUsers()
+func (service *userService) GetAllUsersService() []dto.UserDTO {
+	users := service.UserRepository.GetAllUsers()
+	var lenUsers = len(users)
+	var userDtos []dto.UserDTO
+	var userDto dto.UserDTO
+
+	for i := 0; i < lenUsers; i++ {
+		err := smapping.FillStruct(&userDto, smapping.MapFields(&users[i]))
+		if err != nil {
+			log.Fatalf("Failed map %v: ", err)
+		}
+		userDtos = append(userDtos, userDto)
+	}
+	for i := 0; i < len(userDtos); i++ {
+		accounts, _ := serviceRepo.GetAccountByUserId(userDtos[i].UserId)
+		userDtos[i].SetAccount(accounts)
+	}
+	return userDtos
 }
 
 // func (service *userService) GetUserByIDService(userId int) models.User {
@@ -60,6 +82,11 @@ func (service *userService) GetUserByIDService(userId int) (dto.UserDTO, error) 
 	if err != nil {
 		log.Fatalf("Failed map %v: ", err)
 	}
+	accounts, err := serviceRepo.GetAccountByUserId(userId)
+	if err != nil {
+		return userDto, err
+	}
+	userDto.SetAccount(accounts)
 	var err1 = userDto.CheckExisted()
 	return userDto, err1
 }

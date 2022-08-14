@@ -1,11 +1,11 @@
 package controller
 
 import (
+	"github.com/gin-gonic/gin/binding"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"internBE.com/dto"
-	models "internBE.com/entity"
 	response "internBE.com/respone"
 	"internBE.com/service"
 )
@@ -17,7 +17,9 @@ type userController struct {
 func (controller *userController) CreateUsers(context *gin.Context) {
 	//TODO implement me
 	var userCreateDTO dto.UserCreateDTO
-	err := context.ShouldBind(&userCreateDTO)
+
+	var err = context.ShouldBindBodyWith(&userCreateDTO, binding.JSON)
+	//err := context.ShouldBind(&userCreateDTO)
 	if err != nil {
 		response.Fail(context, 500, "invalid format json "+err.Error())
 		return
@@ -25,7 +27,6 @@ func (controller *userController) CreateUsers(context *gin.Context) {
 
 	result := controller.userService.CreateUsersService(userCreateDTO)
 	response.Success(context, "successfully", result)
-	// context.JSON(http.StatusCreated, response)
 }
 
 func (controller *userController) UpdateUsers(context *gin.Context) {
@@ -55,7 +56,7 @@ func (controller *userController) DeleteUserById(context *gin.Context) {
 
 func (controller *userController) GetAllUsers(context *gin.Context) {
 	//TODO implement me
-	var users []models.User = controller.userService.GetAllUsersService()
+	var users = controller.userService.GetAllUsersService()
 	response.Success(context, "successfully", users)
 }
 

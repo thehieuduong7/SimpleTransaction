@@ -9,6 +9,6 @@ type UserService interface {
 	CreateUsersService(user dto.UserCreateDTO) models.User
 	UpdateUsersService(user dto.UserUpdateDTO)
 	DeleteUserService(userId int)
-	GetAllUsersService() []models.User
+	GetAllUsersService() []dto.UserDTO
 	GetUserByIDService(userId int) (dto.UserDTO, error)
 }

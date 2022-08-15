@@ -1,9 +1,10 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="../logo.png" alt="Logo" width="80" height="80">
+  <a href="https://www.tpptechnology.com/">
+    <img src="internBE.com/pkg/logo.png" alt="Logo" width="80" height="80">
   </a>
+    <a name="readme-top"></a>
 
   <h3 align="center">Simple Bank</h3>
 
@@ -12,8 +13,9 @@
     <br />
   </p>
 </div>
-# Introduction
-<a name="readme-top"></a>
+
+## Introduction
+
 We are TP&P Technology Team 1 Intern.
 
 ## Build with
@@ -27,6 +29,19 @@ Besides, there is a list of major frameworks/libraries used.
 - Gin - Go framework
 - GORM - GORM library
 - PostgreSQL - PostgreSQL database
+
+## Usage
+
+    ``sh
+    import{
+        github.com/brianvoe/gofakeit/v6 v6.18.0
+        github.com/gin-gonic/gin v1.8.1
+        github.com/joho/godotenv v1.4.0
+        github.com/mashingan/smapping v0.1.17
+        gorm.io/driver/postgres v1.3.8
+        gorm.io/gorm v1.23.8
+    }
+    ``
 
 ### Installation
 

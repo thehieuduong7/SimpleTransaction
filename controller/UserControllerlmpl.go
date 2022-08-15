@@ -61,9 +61,7 @@ func (controller *userController) GetAllUsers(context *gin.Context) {
 }
 
 func (controller *userController) GetUserByID(context *gin.Context) {
-	//TODO implement me
-	userId := context.Param("user_id")
-	newUserId, err := strconv.Atoi(userId)
+	newUserId, err := strconv.ParseInt(context.Param("user_id"), 0, 0)
 	if err != nil {
 		response.Fail(context, 500, "No User ID found "+err.Error())
 		return

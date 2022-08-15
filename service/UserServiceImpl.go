@@ -84,7 +84,7 @@ func (service *userService) GetUserByIDService(userId int) (dto.UserDTO, error) 
 	}
 	accounts, err := serviceRepo.GetAccountByUserId(userId)
 	if err != nil {
-		return userDto, err
+		return userDto, nil
 	}
 	userDto.SetAccount(accounts)
 	var err1 = userDto.CheckExisted()

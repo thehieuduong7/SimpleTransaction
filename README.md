@@ -30,18 +30,7 @@ Besides, there is a list of major frameworks/libraries used.
 - GORM - GORM library
 - PostgreSQL - PostgreSQL database
 
-## Usage
-
-    import{
-        github.com/brianvoe/gofakeit/v6 v6.18.0
-        github.com/gin-gonic/gin v1.8.1
-        github.com/joho/godotenv v1.4.0
-        github.com/mashingan/smapping v0.1.17
-        gorm.io/driver/postgres v1.3.8
-        gorm.io/gorm v1.23.8
-    }
-
-### Installation
+## Installation
 
 _Step by step to run our project._
 
@@ -81,6 +70,17 @@ _Step by step to run our project._
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-#### Contribute
+## Usage
+
+    import{
+        github.com/brianvoe/gofakeit/v6 v6.18.0
+        github.com/gin-gonic/gin v1.8.1
+        github.com/joho/godotenv v1.4.0
+        github.com/mashingan/smapping v0.1.17
+        gorm.io/driver/postgres v1.3.8
+        gorm.io/gorm v1.23.8
+    }
+
+## Contribute
 
 TODO:

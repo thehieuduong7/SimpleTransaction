@@ -32,7 +32,6 @@ Besides, there is a list of major frameworks/libraries used.
 
 ## Usage
 
-    ```sh
     import{
         github.com/brianvoe/gofakeit/v6 v6.18.0
         github.com/gin-gonic/gin v1.8.1
@@ -41,7 +40,6 @@ Besides, there is a list of major frameworks/libraries used.
         gorm.io/driver/postgres v1.3.8
         gorm.io/gorm v1.23.8
     }
-    ```
 
 ### Installation
 

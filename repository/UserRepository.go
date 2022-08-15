@@ -7,7 +7,6 @@ import (
 type UserRepository interface {
 	CreateUsers(user models.User) models.User
 	UpdateUsers(user models.User) models.User
-
 	GetAllUsers() []models.User
 	FindUserByID(userId int) models.User
 	Save(user models.User) models.User

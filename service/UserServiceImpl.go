@@ -1,8 +1,9 @@
 package service
 
 import (
-	"internBE.com/storage"
 	"log"
+
+	"internBE.com/storage"
 
 	"github.com/mashingan/smapping"
 	"internBE.com/dto"
@@ -70,10 +71,6 @@ func (service *userService) GetAllUsersService() []dto.UserDTO {
 	}
 	return userDtos
 }
-
-// func (service *userService) GetUserByIDService(userId int) models.User {
-// 	return service.UserRepository.FindUserByID(userId)
-// }
 
 func (service *userService) GetUserByIDService(userId int) (dto.UserDTO, error) {
 	user := service.UserRepository.FindUserByID(userId)

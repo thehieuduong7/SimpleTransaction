@@ -54,36 +54,34 @@ func (service *userService) DeleteUserService(userId int) {
 
 func (service *userService) GetAllUsersService() []dto.UserDTO {
 	users := service.UserRepository.GetAllUsers()
-	var lenUsers = len(users)
 	var userDtos []dto.UserDTO
-	var userDto dto.UserDTO
-
-	for i := 0; i < lenUsers; i++ {
-		err := smapping.FillStruct(&userDto, smapping.MapFields(&users[i]))
-		if err != nil {
-			log.Fatalf("Failed map %v: ", err)
-		}
-		userDtos = append(userDtos, userDto)
-	}
-	for i := 0; i < len(userDtos); i++ {
-		accounts, _ := serviceRepo.GetAccountByUserId(userDtos[i].UserId)
-		userDtos[i].SetAccount(accounts)
+	for i := 0; i < len(users); i++ {
+		userDtos = append(userDtos, makeUserDto(users[i]))
 	}
 	return userDtos
 }
 
 func (service *userService) GetUserByIDService(userId int) (dto.UserDTO, error) {
 	user := service.UserRepository.FindUserByID(userId)
+	userDto := makeUserDto(user)
+	var err1 = userDto.CheckExisted()
+	return userDto, err1
+}
+func makeUserDto(user models.User) dto.UserDTO {
 	var userDto dto.UserDTO
+	var account dto.AccountDto
+	var acounts []dto.AccountDto
 	err := smapping.FillStruct(&userDto, smapping.MapFields(&user))
 	if err != nil {
 		log.Fatalf("Failed map %v: ", err)
 	}
-	accounts, err := serviceRepo.GetAccountByUserId(userId)
-	if err != nil {
-		return userDto, nil
+	for i := 0; i < len(user.Accounts); i++ {
+		err1 := smapping.FillStruct(&account, smapping.MapFields(&user.Accounts[i]))
+		if err1 != nil {
+			log.Fatalf("Failed map %v: ", err)
+		}
+		acounts = append(acounts, account)
 	}
-	userDto.SetAccount(accounts)
-	var err1 = userDto.CheckExisted()
-	return userDto, err1
+	userDto.SetAccount(acounts)
+	return userDto
 }

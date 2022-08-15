@@ -1,19 +1,14 @@
 <!-- PROJECT LOGO -->
-<br />
+
 <div id="header" align="center">
   <img src="https://media3.giphy.com/media/k0ijJhqrUP4T2EvmJ1/giphy.gif?cid=790b7611e84211e835bf53fbbaf6faab8b0562325a2db0f2&rid=giphy.gif&ct=g" width="200"/>
 </div>
+<hr>
 <div align="center">
-  <!-- <a href="https://www.tpptechnology.com/">
-    <img src="internBE.com/pkg/logo.png" alt="Logo" width="80" height="80">
-  </a> -->
-  <hr>
   <h1 align="center">Features of Banking</h1>
-
   <p align="center">
     A research of Golang and PostgreSQL. 
     Including: Transactions, CRUD Users and CRUD Accounts.
-    <br />
   </p>
    <a name="readme-top"></a>
 

@@ -70,7 +70,7 @@ func (service *userService) GetUserByIDService(userId int) (dto.UserDTO, error) 
 func makeUserDto(user models.User) dto.UserDTO {
 	var userDto dto.UserDTO
 	var account dto.AccountDto
-	var acounts []dto.AccountDto
+	var accounts []dto.AccountDto
 	err := smapping.FillStruct(&userDto, smapping.MapFields(&user))
 	if err != nil {
 		log.Fatalf("Failed map %v: ", err)
@@ -80,8 +80,8 @@ func makeUserDto(user models.User) dto.UserDTO {
 		if err1 != nil {
 			log.Fatalf("Failed map %v: ", err)
 		}
-		acounts = append(acounts, account)
+		accounts = append(accounts, account)
 	}
-	userDto.SetAccount(acounts)
+	userDto.SetAccount(accounts)
 	return userDto
 }

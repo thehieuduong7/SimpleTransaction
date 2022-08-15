@@ -1,32 +1,38 @@
-# Introduction
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="../logo.png" alt="Logo" width="80" height="80">
+  </a>
 
+  <h3 align="center">Simple Bank</h3>
+
+  <p align="center">
+    A research of Golang and PostgreSQL 
+    <br />
+  </p>
+</div>
+# Introduction
+<a name="readme-top"></a>
 We are TP&P Technology Team 1 Intern.
 
 ## Build with
 
-Our major frameworks/libraries used on our project.
+What we used to build our project.
 
-- [![Go][golang]][[golang-url]]
-- [![Postgresql][postgresql.com]][postgresql-url]
-- [![Gin][jquery.com]][ginframework-url]
-- [![docker][docker.com]][docker-url]
+<p align="center"><a href="https://azure.microsoft.com/en-in/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/microsoft_azure/microsoft_azure-icon.svg" alt="azure" width="40" height="40"/> </a> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://golang.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original.svg" alt="go" width="40" height="40"/> </a> <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> <a href="https://postman.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman" width="40" height="40"/> </a>
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Besides, there is a list of major frameworks/libraries used.
 
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-
-- Create Go module
-  ```sh
-  go mod yourproject.go
-  ```
+- Gin - Go framework
+- GORM - GORM library
+- PostgreSQL - PostgreSQL database
 
 ### Installation
 
 _Step by step to run our project._
 
-1.  Clone the repo
+1.  First thing first Clone the repo
     ```sh
     git clone https://tucnguyen@dev.azure.com/tucnguyen/Internship_072022/_git/Internship_072022
     ```
@@ -38,7 +44,6 @@ _Step by step to run our project._
     database
 
     ```sh
-
     Host = "localhost"
     Port = "5432"
     Password = "123"
@@ -46,21 +51,23 @@ _Step by step to run our project._
     DBName = "demo1"
     ```
 
-4.  Run the project by command
+4.  Run the project by command.
+
     ```sh
     go run main.go
     ```
 
+5.  Please noted that we using Seed Database to create randomly database for Simple Bank account.
+
+    ```sh
+    // Seed data
+    GetSeedData()
+    // get data
+    storage.GetDB()
+    ```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-# Contribute
+#### Contribute
 
-TODO: Explain how other users and developers can contribute to make your code better.
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[golang-url]: https://go.dev/
-[postgresql-url]: https://www.postgresql.org/
-[ginframework-url]: https://pkg.go.dev/github.com/gin-gonic/gin
-[docker-url]: https://www.docker.com/
+TODO:

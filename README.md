@@ -77,11 +77,10 @@ _Step by step to run our project._
     storage.GetDB()
     ```
 
-    <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ## Usage
 
 <hr>
+
         import{
          github.com/brianvoe/gofakeit/v6 v6.18.0
          github.com/gin-gonic/gin v1.8.1

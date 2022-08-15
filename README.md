@@ -1,5 +1,8 @@
 <!-- PROJECT LOGO -->
 <br />
+<div id="header" align="center">
+  <img src="https://media.giphy.com/media/M9gbBd9nbDrOTu1Mqx/giphy.gif" width="100"/>
+</div>
 <div align="center">
   <!-- <a href="https://www.tpptechnology.com/">
     <img src="internBE.com/pkg/logo.png" alt="Logo" width="80" height="80">
@@ -86,7 +89,7 @@ _Step by step to run our project._
          gorm.io/gorm v1.23.8
         }
 
-## Author
+## Contributor
 
 - Tuc Nguyen
 - Truong Nguyen Xuan

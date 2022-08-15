@@ -43,19 +43,19 @@ func (t *transactionControllerImpl) GetAllTransRelatedNumberAcc(ctx *gin.Context
 	}
 	response.Success(ctx, "GetAllTransRelatedNumberAcc", resTransactions)
 }
-func (t *transactionControllerImpl) GetTransSendedByNumberAcc(ctx *gin.Context) {
+func (t *transactionControllerImpl) GetHistoryAccountNo(ctx *gin.Context) {
 	var reqTransaction dto.GetMyTransactionRequest
 	err := ctx.ShouldBindJSON(&reqTransaction)
 	if err != nil {
 		response.Fail(ctx, 500, err.Error())
 		return
 	}
-	resTransactions, err := t.transactionService.GetTransSendedByNumberAcc(reqTransaction)
+	resTransactions, err := t.transactionService.GetHistoryAccountNo(reqTransaction)
 	if err != nil {
 		response.Fail(ctx, 500, err.Error())
 		return
 	}
-	response.Success(ctx, "GetTransSendedByNumberAcc", resTransactions)
+	response.Success(ctx, "GetHistoryAccountNo", resTransactions)
 }
 func (t *transactionControllerImpl) GetTransRevievedByNumberAcc(ctx *gin.Context) {
 	var reqTransaction dto.GetMyTransactionRequest
@@ -78,12 +78,12 @@ func (t *transactionControllerImpl) GetTransFromTo(ctx *gin.Context) {
 		response.Fail(ctx, 500, err.Error())
 		return
 	}
-	resTransactions, err := t.transactionService.GetTransFromTo(reqTransaction)
+	resTransactions, err := t.transactionService.GetHistoryTransWith(reqTransaction)
 	if err != nil {
 		response.Fail(ctx, 500, err.Error())
 		return
 	}
-	response.Success(ctx, "GetTransFromTo", resTransactions)
+	response.Success(ctx, "GetHistoryTransWith", resTransactions)
 }
 func (t *transactionControllerImpl) GetTransDateToDate(ctx *gin.Context) {
 	var reqTransaction dto.GetTransactionFromToTimeRequest
@@ -92,7 +92,7 @@ func (t *transactionControllerImpl) GetTransDateToDate(ctx *gin.Context) {
 		response.Fail(ctx, 500, err.Error())
 		return
 	}
-	resTransactions, err := t.transactionService.GetTransDateToDate(reqTransaction)
+	resTransactions, err := t.transactionService.GetHistoryTransBetweenDateWith(reqTransaction)
 	if err != nil {
 		response.Fail(ctx, 500, err.Error())
 		return

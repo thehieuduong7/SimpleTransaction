@@ -67,14 +67,21 @@ func (t *transactionRepositoryImpl) GetAllTransRelatedNumberAcc(AccountNo int, l
 	return arrTrans, nil
 }
 
-// list trans send to
-func (t *transactionRepositoryImpl) GetTransSendedByNumberAcc(AccountNo int, limit int) (arrTrans []entity.Transaction, err error) {
+func (t *transactionRepositoryImpl) GetHistoryAccountNo(AccountNo int, limit int) (arrAcc []int, err error) {
+	result := t.DB.Raw("? union ?",
+		t.DB.Model(&entity.Transaction{}).
+			Where(entity.Transaction{AccountNoRsc: AccountNo}).
+			Distinct("account_no_des"),
+		t.DB.Model(&entity.Transaction{}).
+			Where(entity.Transaction{AccountNoDes: AccountNo}).
+			Distinct("account_no_rsc"),
+	).Scan(&arrAcc)
 
-	result := t.DB.Where(entity.Transaction{AccountNoRsc: AccountNo}).Order("create_at desc").Limit(limit).Find(&arrTrans)
 	if result.Error != nil {
-		return nil, result.Error
+		return nil, err
 	}
-	return arrTrans, nil
+
+	return arrAcc, nil
 }
 func (t *transactionRepositoryImpl) GetTransRevievedByNumberAcc(AccountNo int, limit int) (arrTrans []entity.Transaction, err error) {
 
@@ -85,9 +92,11 @@ func (t *transactionRepositoryImpl) GetTransRevievedByNumberAcc(AccountNo int, l
 	return arrTrans, nil
 }
 
-func (t *transactionRepositoryImpl) GetTransFromTo(AccountNoRsc int, AccountNoDes int, limit int) (arrTrans []entity.Transaction, err error) {
+func (t *transactionRepositoryImpl) GetHistoryTransWith(AccountNo1 int,
+	AccountNo2 int, limit int) (arrTrans []entity.Transaction, err error) {
 
-	result := t.DB.Where(entity.Transaction{AccountNoRsc: AccountNoRsc, AccountNoDes: AccountNoDes}).
+	result := t.DB.Where(entity.Transaction{AccountNoRsc: AccountNo1, AccountNoDes: AccountNo2}).
+		Or(entity.Transaction{AccountNoRsc: AccountNo2, AccountNoDes: AccountNo1}).
 		Order("create_at desc").Limit(limit).Find(&arrTrans)
 	if result.Error != nil {
 		return nil, result.Error
@@ -95,14 +104,27 @@ func (t *transactionRepositoryImpl) GetTransFromTo(AccountNoRsc int, AccountNoDe
 	return arrTrans, nil
 }
 
-func (t *transactionRepositoryImpl) GetTransDateToDate(AccountNoRsc int,
-	AccountNoDes int, dateStart time.Time, dateEnd time.Time,
+func (t *transactionRepositoryImpl) GetHistoryTransBetweenDateWith(AccountNo1 int,
+	AccountNo2 int, dateStart time.Time, dateEnd time.Time,
 	limit int) (arrTrans []entity.Transaction, err error) {
-	result := t.DB.Where(entity.Transaction{AccountNoRsc: AccountNoRsc, AccountNoDes: AccountNoDes}).
+	result := t.DB.Where(entity.Transaction{AccountNoRsc: AccountNo1, AccountNoDes: AccountNo2}).
+		Or(entity.Transaction{AccountNoRsc: AccountNo2, AccountNoDes: AccountNo1}).
 		Where("create_at between ? and ?", dateStart, dateEnd).
 		Order("create_at desc").Limit(limit).Find(&arrTrans)
 	if result.Error != nil {
 		return nil, result.Error
 	}
 	return arrTrans, nil
+}
+
+func (t *transactionRepositoryImpl) GetUserByAccountNo(accountNo int) (*entity.User, error) {
+	account := entity.Account{}
+	if err := t.DB.First(&account, accountNo).Error; err != nil {
+		return nil, err
+	}
+	user := entity.User{}
+	if err := t.DB.First(&user, account.UserId).Error; err != nil {
+		return nil, err
+	}
+	return &user, nil
 }

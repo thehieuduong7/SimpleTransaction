@@ -8,7 +8,6 @@ import (
 	"internBE.com/dto"
 	"internBE.com/entity"
 	"internBE.com/repository"
-	"internBE.com/storage"
 )
 
 type transactionServiceImpl struct {
@@ -18,10 +17,12 @@ type transactionServiceImpl struct {
 func NewTransactionServiceImpl(transactionRepository *repository.TransactionRepository) TransactionService {
 	return &transactionServiceImpl{TransactionRepository: *transactionRepository}
 }
-func convertCreateEntityToCreateResponeModel(trans entity.Transaction) dto.GetMyTransactionReponse {
-	userRepo := repository.NewUserRepository(storage.GetDB())
-	Rsc := dto.AccountInfo{Name: userRepo.FindUserByID(trans.AccountNoRsc).Name, AccountNo: trans.AccountNoRsc}
-	Des := dto.AccountInfo{Name: userRepo.FindUserByID(trans.AccountNoDes).Name, AccountNo: trans.AccountNoDes}
+func (t *transactionServiceImpl) convertCreateEntityToCreateResponeModel(
+	trans entity.Transaction) dto.GetMyTransactionReponse {
+	user, _ := t.TransactionRepository.GetUserByAccountNo(trans.AccountNoRsc)
+	Rsc := dto.AccountInfo{Name: user.Name, AccountNo: trans.AccountNoRsc}
+	user, _ = t.TransactionRepository.GetUserByAccountNo(trans.AccountNoDes)
+	Des := dto.AccountInfo{Name: user.Name, AccountNo: trans.AccountNoDes}
 
 	return dto.GetMyTransactionReponse{
 		Rersouce:    Rsc,
@@ -42,7 +43,7 @@ func (t *transactionServiceImpl) Create(req dto.CreateTransactionRequest) (dto.G
 	if err := t.TransactionRepository.Create(&trans); err != nil {
 		return dto.GetMyTransactionReponse{}, err
 	}
-	return convertCreateEntityToCreateResponeModel(trans), nil
+	return t.convertCreateEntityToCreateResponeModel(trans), nil
 }
 func (t *transactionServiceImpl) GetAllTransRelatedNumberAcc(req dto.GetMyTransactionRequest) (responses []dto.GetMyTransactionReponse, err error) {
 	listTrans, err := t.TransactionRepository.GetAllTransRelatedNumberAcc(req.AccountNoRsc, req.Limit)
@@ -50,18 +51,21 @@ func (t *transactionServiceImpl) GetAllTransRelatedNumberAcc(req dto.GetMyTransa
 		return nil, err
 	}
 	for _, trans := range listTrans {
-		responses = append(responses, convertCreateEntityToCreateResponeModel(trans))
+		responses = append(responses, t.convertCreateEntityToCreateResponeModel(trans))
 	}
 	return responses, err
 
 }
-func (t *transactionServiceImpl) GetTransSendedByNumberAcc(req dto.GetMyTransactionRequest) (responses []dto.GetMyTransactionReponse, err error) {
-	listTrans, err := t.TransactionRepository.GetTransSendedByNumberAcc(req.AccountNoRsc, req.Limit)
+func (t *transactionServiceImpl) GetHistoryAccountNo(req dto.GetMyTransactionRequest) (responses []dto.AccountInfo, err error) {
+	list, err := t.TransactionRepository.GetHistoryAccountNo(req.AccountNoRsc, req.Limit)
 	if err != nil {
 		return nil, err
 	}
-	for _, trans := range listTrans {
-		responses = append(responses, convertCreateEntityToCreateResponeModel(trans))
+
+	for _, account_no := range list {
+		user, _ := t.TransactionRepository.GetUserByAccountNo(account_no)
+		Rsc := dto.AccountInfo{Name: user.Name, AccountNo: account_no}
+		responses = append(responses, Rsc)
 	}
 	return responses, nil
 }
@@ -71,23 +75,24 @@ func (t *transactionServiceImpl) GetTransRevievedByNumberAcc(req dto.GetMyTransa
 		return nil, err
 	}
 	for _, trans := range listTrans {
-		responses = append(responses, convertCreateEntityToCreateResponeModel(trans))
+		responses = append(responses, t.convertCreateEntityToCreateResponeModel(trans))
 	}
 	return responses, nil
 }
 
-func (t *transactionServiceImpl) GetTransFromTo(req dto.GetTransactionFromToRequest) (responses []dto.GetMyTransactionReponse, err error) {
-	listTrans, err := t.TransactionRepository.GetTransFromTo(req.AccountNoRsc, req.AccountNoDes, req.Limit)
+func (t *transactionServiceImpl) GetHistoryTransWith(req dto.GetTransactionFromToRequest) (responses []dto.GetMyTransactionReponse, err error) {
+	listTrans, err := t.TransactionRepository.
+		GetHistoryTransWith(req.AccountNo1, req.AccountNo2, req.Limit)
 	if err != nil {
 		return nil, err
 	}
 	for _, trans := range listTrans {
-		responses = append(responses, convertCreateEntityToCreateResponeModel(trans))
+		responses = append(responses, t.convertCreateEntityToCreateResponeModel(trans))
 	}
 	return responses, nil
 }
 
-func (t *transactionServiceImpl) GetTransDateToDate(req dto.GetTransactionFromToTimeRequest) (responses []dto.
+func (t *transactionServiceImpl) GetHistoryTransBetweenDateWith(req dto.GetTransactionFromToTimeRequest) (responses []dto.
 	GetMyTransactionReponse, err error) {
 	timeStart, err := time.Parse(constantGlobal.TimeLayout, req.TimeStart)
 	if err != nil {
@@ -101,12 +106,12 @@ func (t *transactionServiceImpl) GetTransDateToDate(req dto.GetTransactionFromTo
 		return nil, errors.New("time start after time end")
 	}
 	listTrans, err := t.TransactionRepository.
-		GetTransDateToDate(req.AccountNoRsc, req.AccountNoDes, timeStart, timeEnd, req.Limit)
+		GetHistoryTransBetweenDateWith(req.AccountNo1, req.AccountNo2, timeStart, timeEnd, req.Limit)
 	if err != nil {
 		return nil, err
 	}
 	for _, trans := range listTrans {
-		responses = append(responses, convertCreateEntityToCreateResponeModel(trans))
+		responses = append(responses, t.convertCreateEntityToCreateResponeModel(trans))
 	}
 	return responses, nil
 }

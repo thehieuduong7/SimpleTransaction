@@ -3,7 +3,7 @@ content-type: application/json
 
 
 {
-    "account_no_rsc":3,
+    "account_no_rsc": 5,
     "account_no_des": 2,
     "message": "from 3 to 2 4",
     "amount": 4.3
@@ -36,8 +36,8 @@ content-type: application/json
 
 
 {
-    "account_no_rsc": 3,
-    "account_no_des": 2,
+    "account_no_1": 3,
+    "account_no_2": 2,
     "time_start" :"2022-08-01 20:41:14",
     "time_end" :"2022-08-15 20:41:14",
     "limit":-1
@@ -49,8 +49,8 @@ content-type: application/json
 
 
 {
-    "account_no_rsc": 2,
-    "account_no_des": 3,
+    "account_no_1": 2,
+    "account_no_2": 3,
     "limit":-1
 }
 
@@ -59,3 +59,10 @@ GET  http://localhost:8000/api/account/2 HTTP/1.1
 
 ###
 
+POST http://localhost:8000/api/account/create HTTP/1.1
+content-type: application/json
+
+
+{
+    "user_id":
+}

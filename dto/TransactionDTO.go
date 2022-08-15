@@ -13,17 +13,17 @@ type GetMyTransactionRequest struct {
 }
 
 type GetTransactionFromToRequest struct {
-	AccountNoRsc int `json:"account_no_rsc"`
-	AccountNoDes int `json:"account_no_des"`
-	Limit        int `json:"limit"`
+	AccountNo1 int `json:"account_no_1"`
+	AccountNo2 int `json:"account_no_2"`
+	Limit      int `json:"limit"`
 }
 
 type GetTransactionFromToTimeRequest struct {
-	AccountNoRsc int    `json:"account_no_rsc"`
-	AccountNoDes int    `json:"account_no_des"`
-	TimeStart    string `json:"time_start"`
-	TimeEnd      string `json:"time_end"`
-	Limit        int    `json:"limit"`
+	AccountNo1 int    `json:"account_no_1"`
+	AccountNo2 int    `json:"account_no_2"`
+	TimeStart  string `json:"time_start"`
+	TimeEnd    string `json:"time_end"`
+	Limit      int    `json:"limit"`
 }
 
 type GetMyTransactionReponse struct {

@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div id="header" align="center">
-  <img src="https://media3.giphy.com/media/k0ijJhqrUP4T2EvmJ1/giphy.gif?cid=790b7611e84211e835bf53fbbaf6faab8b0562325a2db0f2&rid=giphy.gif&ct=g" width="400"/>
+  <img src="https://media3.giphy.com/media/k0ijJhqrUP4T2EvmJ1/giphy.gif?cid=790b7611e84211e835bf53fbbaf6faab8b0562325a2db0f2&rid=giphy.gif&ct=g" width="200"/>
 </div>
 <div align="center">
   <!-- <a href="https://www.tpptechnology.com/">

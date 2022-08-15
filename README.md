@@ -16,7 +16,7 @@
 
 ## Introduction
 
-We are TP&P Technology Team 1 Intern.
+We are Team 1 Intern at TP&P Technology company
 
 ## Build with
 

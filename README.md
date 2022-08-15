@@ -4,7 +4,7 @@
   <!-- <a href="https://www.tpptechnology.com/">
     <img src="internBE.com/pkg/logo.png" alt="Logo" width="80" height="80">
   </a> -->
-  <h1 align="center">The Feature of Banks</h1>
+  <h1 align="center">Features of Bank</h1>
 
   <p align="center">
     A research of Golang and PostgreSQL. 

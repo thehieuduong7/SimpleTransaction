@@ -6,7 +6,7 @@
   </a> -->
     <a name="readme-top"></a>
 
-  <h3 align="center">Simple Bank</h3>
+  <h1 align="center">Simple Bank</h1>
 
   <p align="center">
     A research of Golang and PostgreSQL 

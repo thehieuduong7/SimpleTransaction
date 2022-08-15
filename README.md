@@ -61,14 +61,14 @@ _Step by step to run our project._
 
 5.  Please noted that we using Seed Database to create randomly database for Simple Bank account.
 
-    ```sh
-    // Seed data
-    GetSeedData()
-    // get data
-    storage.GetDB()
-    ```
+        ```sh
+        // Seed data
+        GetSeedData()
+        // get data
+        storage.GetDB()
+        ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+    <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Usage
 

@@ -24,7 +24,11 @@ func (controller *accountController) CreateAccount(context *gin.Context) {
 		response.Fail(context, 500, "invalid format string")
 		return
 	}
-	controller.AccountService.CreateAccount(&accountDto)
+	err1 := controller.AccountService.CreateAccount(&accountDto)
+
+	if err1 != nil {
+		response.Fail(context, 500, "the query fail")
+	}
 	response.Success(context, "successfully", accountDto)
 }
 
@@ -34,7 +38,10 @@ func (controller *accountController) UpdateAccount(context *gin.Context) {
 	if err != nil {
 		response.Fail(context, 500, "invalid format string")
 	}
-	controller.AccountService.UpdateAccount(&accountDto)
+	err1 := controller.AccountService.UpdateAccount(&accountDto)
+	if err1 != nil {
+		response.Fail(context, 500, "the query fail")
+	}
 	response.Success(context, "successfully", accountDto)
 }
 
@@ -43,7 +50,10 @@ func (controller *accountController) DeleteAccount(context *gin.Context) {
 	if err != nil {
 		response.Fail(context, 500, "invalid format string")
 	}
-	controller.AccountService.DeleteAccount(int(id))
+	err1 := controller.AccountService.DeleteAccount(int(id))
+	if err1 != nil {
+		response.Fail(context, 500, "the query fail")
+	}
 	response.Success(context, "successfully", nil)
 }
 

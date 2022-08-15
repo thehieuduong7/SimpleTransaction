@@ -17,10 +17,10 @@ var (
 func AccountRoute(router *gin.Engine) {
 	accountRoutes := router.Group("api/account")
 	{
-		accountRoutes.POST("/create", controllerRepo.CreateAccount)
+		accountRoutes.POST("", controllerRepo.CreateAccount)
 		accountRoutes.GET("user/:id", controllerRepo.GetAccountByUserId)
 		accountRoutes.GET("/:id", controllerRepo.GetAccountById)
-		accountRoutes.PUT("/update", controllerRepo.UpdateAccount)
+		accountRoutes.PUT("", controllerRepo.UpdateAccount)
 		accountRoutes.DELETE("/:id", controllerRepo.DeleteAccount)
 	}
 }

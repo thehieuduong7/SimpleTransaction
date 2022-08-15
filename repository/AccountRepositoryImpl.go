@@ -15,14 +15,21 @@ func NewAccountRepository(dbConn *gorm.DB) AccountRepository {
 	}
 }
 
-func (db *accountConnection) UpdateAccount(account *models.Account) models.Account {
+func (db *accountConnection) UpdateAccount(account *models.Account) (models.Account, error) {
 	var account1 models.Account
-	db.connection.Model(models.Account{}).Where("account_number = ?", account.AccountNumber).Updates(&account)
-	return account1
+	err := db.connection.Model(models.Account{}).Where("account_number = ?", account.AccountNumber).Updates(&account).Error
+	if err != nil {
+		return account1, err
+	}
+	return account1, nil
 }
 
-func (db *accountConnection) DeleteAccount(id int) {
-	db.connection.Model(models.Account{}).Where("account_number = ?", id).Update("is_active", false)
+func (db *accountConnection) DeleteAccount(id int) error {
+	err := db.connection.Model(models.Account{}).Where("account_number = ?", id).Update("is_active", false).Error
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (db *accountConnection) GetAccountByUserId(id int) []models.Account {
@@ -33,13 +40,15 @@ func (db *accountConnection) GetAccountByUserId(id int) []models.Account {
 
 func (db *accountConnection) GetAccountById(id int) models.Account {
 	var account models.Account
-	err := db.connection.Find(&account, "account_number = ? AND is_active= ? ", id, true).Error
-	print(err)
+	db.connection.Find(&account, "account_number = ? AND is_active= ? ", id, true)
 	return account
 }
 
-func (db *accountConnection) CreateAccount(account *models.Account) *models.Account {
-	db.connection.Create(account)
-	return account
+func (db *accountConnection) CreateAccount(account *models.Account) (*models.Account, error) {
+	err := db.connection.Create(account).Error
+	if err != nil {
+		return account, err
+	}
+	return account, nil
 
 }

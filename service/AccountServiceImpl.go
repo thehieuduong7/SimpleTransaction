@@ -18,27 +18,35 @@ func NewAccountService(repo repository.AccountRepository) AccountService {
 	return &accountService{AccountRepo: repo}
 }
 
-func (service *accountService) CreateAccount(account *dto.AccountDtoToInsert) {
+func (service *accountService) CreateAccount(account *dto.AccountDtoToInsert) error {
 	var accountEntity = entity.Account{}
 	err := smapping.FillStruct(&accountEntity, smapping.MapFields(account))
 	if err != nil {
 		log.Fatalf("Failed map %v: ", err)
 	}
-	accountEntity2 := service.AccountRepo.CreateAccount(&accountEntity)
+	accountEntity2, err := service.AccountRepo.CreateAccount(&accountEntity)
+	if err != nil {
+		return err
+	}
 	account.SetAccountNumber(accountEntity2.AccountNumber)
+	return nil
 }
 
-func (service *accountService) UpdateAccount(account *dto.AccountDtoToInsert) {
+func (service *accountService) UpdateAccount(account *dto.AccountDtoToInsert) error {
 	var accountEntity = entity.Account{}
 	err := smapping.FillStruct(&accountEntity, smapping.MapFields(account))
 	if err != nil {
 		log.Fatalf("Failed map %v: ", err)
 	}
-	service.AccountRepo.UpdateAccount(&accountEntity)
+	_, err = service.AccountRepo.UpdateAccount(&accountEntity)
+	if err != nil {
+		return nil
+	}
+	return nil
 }
 
-func (service *accountService) DeleteAccount(id int) {
-	service.AccountRepo.DeleteAccount(id)
+func (service *accountService) DeleteAccount(id int) error {
+	return service.AccountRepo.DeleteAccount(id)
 }
 
 func (service *accountService) GetAccountByUserId(id int) ([]dto.AccountDto, error) {

@@ -1,5 +1,19 @@
-# Introduction
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
 
+  <h3 align="center">Simple Bank</h3>
+
+  <p align="center">
+    A research of Golang and PostgreSQL 
+    <br />
+  </p>
+</div>
+# Introduction
+<a name="readme-top"></a>
 We are TP&P Technology Team 1 Intern.
 
 ## Build with
@@ -54,6 +68,6 @@ _Step by step to run our project._
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-# Contribute
+#### Contribute
 
-TODO: Explain how other users and developers can contribute to make your code better.
+TODO:

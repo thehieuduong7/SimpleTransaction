@@ -1,9 +1,9 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://www.tpptechnology.com/">
+  <!-- <a href="https://www.tpptechnology.com/">
     <img src="internBE.com/pkg/logo.png" alt="Logo" width="80" height="80">
-  </a>
+  </a> -->
     <a name="readme-top"></a>
 
   <h3 align="center">Simple Bank</h3>
@@ -61,12 +61,10 @@ _Step by step to run our project._
 
 5.  Please noted that we using Seed Database to create randomly database for Simple Bank account.
 
-        ```sh
-        // Seed data
-        GetSeedData()
-        // get data
-        storage.GetDB()
-        ```
+    // Seed data
+    GetSeedData()
+    // get data
+    storage.GetDB()
 
     <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

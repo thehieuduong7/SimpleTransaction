@@ -4,8 +4,6 @@
   <!-- <a href="https://www.tpptechnology.com/">
     <img src="internBE.com/pkg/logo.png" alt="Logo" width="80" height="80">
   </a> -->
-    <a name="readme-top"></a>
-
   <h1 align="center">The Feature of Banks</h1>
 
   <p align="center">
@@ -13,6 +11,8 @@
     Including: Transactions, CRUD Users and CRUD Accounts.
     <br />
   </p>
+   <a name="readme-top"></a>
+
 </div>
 
 ## Introduction
@@ -72,11 +72,11 @@ _Step by step to run our project._
 
 ## Usage
 
-      import{
-        github.com/brianvoe/gofakeit/v6 v6.18.0
-        github.com/gin-gonic/gin v1.8.1
-        github.com/joho/godotenv v1.4.0
-        github.com/mashingan/smapping v0.1.17
-        gorm.io/driver/postgres v1.3.8
-        gorm.io/gorm v1.23.8
-      }
+        import{
+         github.com/brianvoe/gofakeit/v6 v6.18.0
+         github.com/gin-gonic/gin v1.8.1
+         github.com/joho/godotenv v1.4.0
+         github.com/mashingan/smapping v0.1.17
+         gorm.io/driver/postgres v1.3.8
+         gorm.io/gorm v1.23.8
+        }

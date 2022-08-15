@@ -6,10 +6,10 @@
   </a> -->
     <a name="readme-top"></a>
 
-  <h1 align="center">Simple Bank</h1>
+  <h1 align="center">The Future of Banks</h1>
 
   <p align="center">
-    A research of Golang and PostgreSQL 
+    A research of Golang and PostgreSQL. Including: Transactions, CRUD Users and CRUD Accounts.
     <br />
   </p>
 </div>

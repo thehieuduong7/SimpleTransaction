@@ -10,6 +10,10 @@ What we used to build our project.
 
 Besides, there is a list of major frameworks/libraries used.
 
+- Gin - Go framework
+- GORM - GORM library
+- PostgreSQL - PostgreSQL database
+
 ### Installation
 
 _Step by step to run our project._
@@ -42,10 +46,10 @@ _Step by step to run our project._
 5.  Please noted that we using Seed Database to create randomly database for Simple Bank account.
 
     ```sh
-        // Seed data
-        GetSeedData()
-         // get data
-        storage.GetDB()
+    // Seed data
+    GetSeedData()
+    // get data
+    storage.GetDB()
     ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

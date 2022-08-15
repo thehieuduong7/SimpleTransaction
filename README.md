@@ -38,7 +38,6 @@ _Step by step to run our project._
     database
 
     ```sh
-
     Host = "localhost"
     Port = "5432"
     Password = "123"
@@ -57,10 +56,11 @@ _Step by step to run our project._
 
 TODO: Explain how other users and developers can contribute to make your code better.
 
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+<h3 align="center">A passionate frontend developer from India</h3>
 
-[golang-url]: https://go.dev/
-[postgresql-url]: https://www.postgresql.org/
-[ginframework-url]: https://pkg.go.dev/github.com/gin-gonic/gin
-[docker-url]: https://www.docker.com/
+<h3 align="left">Connect with me:</h3>
+<p align="left">
+</p>
+
+<h3 align="left">Languages and Tools:</h3>
+<p align="left"> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://golang.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original.svg" alt="go" width="40" height="40"/> </a> <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> <a href="https://postman.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman" width="40" height="40"/> </a> </p>

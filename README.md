@@ -80,6 +80,7 @@ _Step by step to run our project._
 ## Usage
 
 <hr>
+
         import{
          github.com/brianvoe/gofakeit/v6 v6.18.0
          github.com/gin-gonic/gin v1.8.1
@@ -92,6 +93,7 @@ _Step by step to run our project._
 ## Contributor
 
 <hr>
+
 - Tuc Nguyen
 - Truong Nguyen Xuan
 - Hieu Duong The

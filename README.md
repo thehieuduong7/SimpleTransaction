@@ -96,6 +96,7 @@ _Step by step to run our project._
 
 ## Contributor
 
+<hr>
 - Tuc Nguyen
 - Truong Nguyen Xuan
 - Hieu Duong The

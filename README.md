@@ -6,10 +6,11 @@
   </a> -->
     <a name="readme-top"></a>
 
-  <h1 align="center">The Future of Banks</h1>
+  <h1 align="center">The Feature of Banks</h1>
 
   <p align="center">
-    A research of Golang and PostgreSQL. Including: Transactions, CRUD Users and CRUD Accounts.
+    A research of Golang and PostgreSQL. 
+    Including: Transactions, CRUD Users and CRUD Accounts.
     <br />
   </p>
 </div>
@@ -42,8 +43,7 @@ _Step by step to run our project._
     ```sh
     go mod tidy
     ```
-3.  Check all the requirements has been satisfied. Custom your server and
-    database
+3.  Check all the requirements has been satisfied. Custom your server and database
 
     ```sh
     Host = "localhost"
@@ -59,7 +59,7 @@ _Step by step to run our project._
     go run main.go
     ```
 
-5.  Please noted that we using Seed Database to create randomly database for Simple Bank account.
+5.  Using Seed Database to create randomly database for Simple Transaction account.
 
     ```sh
     // Seed data
@@ -72,15 +72,11 @@ _Step by step to run our project._
 
 ## Usage
 
-    import{
+      import{
         github.com/brianvoe/gofakeit/v6 v6.18.0
         github.com/gin-gonic/gin v1.8.1
         github.com/joho/godotenv v1.4.0
         github.com/mashingan/smapping v0.1.17
         gorm.io/driver/postgres v1.3.8
         gorm.io/gorm v1.23.8
-    }
-
-## Contribute
-
-TODO:
+      }

@@ -28,6 +28,7 @@ What we used to build our project.
 Based on
 
 - Clean Architecture
+- Scrum and Agile methodology
 
 The list of major frameworks/libraries in the project.
 

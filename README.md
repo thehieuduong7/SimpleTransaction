@@ -6,7 +6,7 @@
 <br>
 <div align="center">
   <h1 align="center">Features of Banking</h1>
-  
+  <hr>
   <p align="center">
     A research of Golang and PostgreSQL. 
     Including: Transactions, CRUD Users and CRUD Accounts.

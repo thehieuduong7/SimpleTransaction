@@ -13,21 +13,21 @@ type GetMyTransactionRequest struct {
 }
 
 type GetTransactionFromToRequest struct {
-	AccountNoRsc int `json:"account_no_rsc"`
-	AccountNoDes int `json:"account_no_des"`
-	Limit        int `json:"limit"`
+	AccountNo1 int `json:"account_no_1"`
+	AccountNo2 int `json:"account_no_2"`
+	Limit      int `json:"limit"`
 }
 
 type GetTransactionFromToTimeRequest struct {
-	AccountNoRsc int    `json:"account_no_rsc"`
-	AccountNoDes int    `json:"account_no_des"`
-	TimeStart    string `json:"time_start"`
-	TimeEnd      string `json:"time_end"`
-	Limit        int    `json:"limit"`
+	AccountNo1 int    `json:"account_no_1"`
+	AccountNo2 int    `json:"account_no_2"`
+	TimeStart  string `json:"time_start"`
+	TimeEnd    string `json:"time_end"`
+	Limit      int    `json:"limit"`
 }
 
 type GetMyTransactionReponse struct {
-	Rersouce    AccountInfo `json:"Rersouce"`
+	Resource    AccountInfo `json:"Resource"`
 	Destination AccountInfo `json:"Destination"`
 	Message     string      `json:"message"`
 	Amount      float64     `json:"amount"`
@@ -36,4 +36,20 @@ type GetMyTransactionReponse struct {
 type AccountInfo struct {
 	Name      string `json:"name"`
 	AccountNo int    `json:"account_no"`
+}
+type StaticTransactionRequest struct {
+	AccountNo1 int `json:"account_no_1"`
+	AccountNo2 int `json:"account_no_2"`
+}
+
+type StaticTransactionResponse struct {
+	Resource       AccountInfo  `json:"resource"`
+	Destination    AccountInfo  `json:"destination"`
+	StaticSended   StaticDetail `json:"static_sended"`
+	StaticRecieved StaticDetail `json:"count_recieved_transaction"`
+}
+
+type StaticDetail struct {
+	CountTransaction int64   `json:"count_transaction"`
+	TotalMoney       float64 `json:"total_money"`
 }

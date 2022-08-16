@@ -8,4 +8,5 @@ type AccountRepository interface {
 	DeleteAccount(id int) error
 	GetAccountByUserId(id int) []models.Account
 	GetAccountById(id int) models.Account
+	IsExistAccount(AccountNo int) bool
 }

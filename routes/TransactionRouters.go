@@ -18,10 +18,10 @@ func TransactionRoute(r *gin.Engine) *gin.Engine {
 	transRouter := r.Group("/transaction")
 	transRouter.POST("", transController.Create)
 	transRouter.POST("/MyTrans", transController.GetAllTransRelatedNumberAcc)
-	transRouter.POST("/TransSendFrom", transController.GetTransSendedByNumberAcc)
-	transRouter.POST("/TransRecieveBy", transController.GetTransRevievedByNumberAcc)
+	transRouter.POST("/GetHistoryAccountNo", transController.GetHistoryAccountNo)
 	transRouter.POST("/TransFromTo", transController.GetTransFromTo)
 	transRouter.POST("/GetTransDateToDate", transController.GetTransDateToDate)
+	transRouter.POST("/GetStaticTransaction", transController.GetStaticTransaction)
 
 	return r
 }

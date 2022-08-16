@@ -1,11 +1,12 @@
 POST http://localhost:8000/transaction HTTP/1.1
 content-type: application/json
 
+
 {
-    "account_no_rsc":3,
+    "account_no_rsc": 3,
     "account_no_des": 2,
     "message": "from 3 to 2 4",
-    "amount": 4.3
+    "amount": 4.9
 }
 
 
@@ -19,15 +20,6 @@ content-type: application/json
     "limit":-1
 }
 
-###
-POST http://localhost:8000/transaction/TransSendFrom HTTP/1.1
-content-type: application/json
-
-
-{
-    "account_no_rsc": 2,
-    "limit":10
-}
 
 ###
 POST http://localhost:8000/transaction/GetTransDateToDate HTTP/1.1
@@ -35,22 +27,29 @@ content-type: application/json
 
 
 {
-    "account_no_rsc": 3,
-    "account_no_des": 2,
+    "account_no_1": 3,
+    "account_no_2": 2,
     "time_start" :"2022-08-01 20:41:14",
     "time_end" :"2022-08-15 20:41:14",
     "limit":-1
 }
-
 ###
-POST http://localhost:8000/transaction/TransRecieveBy HTTP/1.1
+POST http://localhost:8000/transaction/TransFromTo HTTP/1.1
 content-type: application/json
 
 
 {
-    "account_no_rsc": 2,
-    "account_no_des": 3,
-    "limit":-1
+    "account_no_1": 1,
+    "account_no_2": 2
+}
+###
+POST http://localhost:8000/transaction/GetStaticTransaction HTTP/1.1
+content-type: application/json
+
+
+{
+    "account_no_1": 3,
+    "account_no_2": 2
 }
 
 ###

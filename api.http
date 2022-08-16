@@ -15,6 +15,15 @@ content-type: application/json
 ###
 POST http://localhost:8000/transaction/MyTrans HTTP/1.1
 content-type: application/json
+
+{
+    "account_no_rsc": 2,
+    "limit":-1
+}
+###
+POST http://localhost:8000/transaction/GetHistoryAccountNo HTTP/1.1
+content-type: application/json
+
 {
     "account_no_rsc": 2,
     "limit":-1
@@ -48,13 +57,13 @@ content-type: application/json
 
 
 {
-    "account_no_1": 22,
+    "account_no_1": 3,
     "account_no_2": 2
 }
 
 //Account
 ###
-GET  http://localhost:8000/api/account/24 HTTP/1.1
+GET  http://localhost:8000/api/account/13 HTTP/1.1
 content-type: application/json
 ###
 POST  http://localhost:8000/api/account/ HTTP/1.1

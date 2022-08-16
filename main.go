@@ -13,8 +13,8 @@ import (
 func main() {
 
 	router := gin.New()
-	storage.GetDB()
-	// GetSeedData()
+	// storage.GetDB()
+	GetSeedData()
 	routes.AccountRoute(router)
 	routes.UserRoute(router)
 	routes.TransactionRoute(router)

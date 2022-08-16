@@ -1,8 +1,9 @@
 package controller
 
 import (
-	response "internBE.com/respone"
 	"strconv"
+
+	response "internBE.com/respone"
 
 	"github.com/gin-gonic/gin"
 	"internBE.com/dto"
@@ -28,6 +29,7 @@ func (controller *accountController) CreateAccount(context *gin.Context) {
 
 	if err1 != nil {
 		response.Fail(context, 500, "the query fail")
+		return
 	}
 	response.Success(context, "successfully", accountDto)
 }

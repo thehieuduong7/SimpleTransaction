@@ -14,10 +14,15 @@ import (
 
 type transactionServiceImpl struct {
 	TransactionRepository repository.TransactionRepository
+	AccountRepository     repository.AccountRepository
 }
 
-func NewTransactionServiceImpl(transactionRepository *repository.TransactionRepository) TransactionService {
-	return &transactionServiceImpl{TransactionRepository: *transactionRepository}
+func NewTransactionServiceImpl(transactionRepository *repository.TransactionRepository,
+	accountRepository *repository.AccountRepository) TransactionService {
+
+	return &transactionServiceImpl{TransactionRepository: *transactionRepository,
+		AccountRepository: *accountRepository,
+	}
 }
 
 func (t *transactionServiceImpl) Create(req dto.CreateTransactionRequest) (dto.GetMyTransactionReponse, error) {
@@ -56,7 +61,7 @@ func (t *transactionServiceImpl) GetHistoryAccountNo(req dto.GetMyTransactionReq
 	}
 
 	for _, account_no := range list {
-		user, _ := t.TransactionRepository.GetUserByAccountNo(account_no)
+		user, _ := t.AccountRepository.GetUserByAccountNo(account_no)
 		Rsc := dto.AccountInfo{Name: user.Name, AccountNo: account_no}
 		responses = append(responses, Rsc)
 	}
@@ -129,7 +134,6 @@ func (t *transactionServiceImpl) GetStaticTransaction(req dto.
 	if err := t.IsExistAccount(req.AccountNo2); err != nil {
 		return static, err
 	}
-	print("-----------")
 	static.Resource = t.convertToAccountDetailDTO(req.AccountNo1)
 	static.Destination = t.convertToAccountDetailDTO(req.AccountNo2)
 	static.StaticSended, _ = t.convertToStaticDetail(req.AccountNo1, req.AccountNo2)
@@ -138,7 +142,7 @@ func (t *transactionServiceImpl) GetStaticTransaction(req dto.
 }
 
 func (t *transactionServiceImpl) convertToAccountDetailDTO(accountNo int) dto.AccountInfo {
-	user, _ := t.TransactionRepository.GetUserByAccountNo(accountNo)
+	user, _ := t.AccountRepository.GetUserByAccountNo(accountNo)
 	return dto.AccountInfo{Name: user.Name, AccountNo: accountNo}
 }
 func (t *transactionServiceImpl) convertToStaticDetail(AccountNo1 int,

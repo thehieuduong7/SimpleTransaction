@@ -19,5 +19,4 @@ type TransactionRepository interface {
 		limit int) ([]entity.Transaction, error)
 	GetStaticTransaction(AccountNoRsc int,
 		AccountNoDes int) (total int64, amount float64, err error)
-	GetUserByAccountNo(accountNo int) (*entity.User, error)
 }

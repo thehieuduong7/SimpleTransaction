@@ -9,8 +9,10 @@ import (
 )
 
 var (
-	transRepository repository.TransactionRepository = repository.NewTransactionRepositoryImpl(storage.GetDB())
-	transService    service.TransactionService       = service.NewTransactionServiceImpl(&transRepository)
+	transRepository   repository.TransactionRepository = repository.NewTransactionRepositoryImpl(storage.GetDB())
+	accountRepository repository.AccountRepository     = repository.NewAccountRepository(storage.GetDB())
+	transService      service.TransactionService       = service.
+				NewTransactionServiceImpl(&transRepository, &accountRepository)
 	transController controller.TransactionController = controller.NewTransactionControllerImpl(&transService)
 )
 

@@ -12,12 +12,12 @@ type TransactionRepository interface {
 	GetAllTransRelatedNumberAcc(AccountNo int, limit int) ([]entity.Transaction, error)
 	GetHistoryAccountNo(AccountNo int,
 		limit int) ([]int, error)
-	GetTransRevievedByNumberAcc(AccountNo int,
-		limit int) ([]entity.Transaction, error)
 	GetHistoryTransWith(AccountNo1 int,
 		AccountNo2 int, limit int) ([]entity.Transaction, error)
 	GetHistoryTransBetweenDateWith(AccountNo1 int,
 		AccountNo2 int, dateStart time.Time, dateEnd time.Time,
 		limit int) ([]entity.Transaction, error)
+	GetStaticTransaction(AccountNoRsc int,
+		AccountNoDes int) (total int64, amount float64, err error)
 	GetUserByAccountNo(accountNo int) (*entity.User, error)
 }

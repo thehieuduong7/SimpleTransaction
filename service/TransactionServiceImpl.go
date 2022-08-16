@@ -2,12 +2,14 @@ package service
 
 import (
 	"errors"
+	"fmt"
 	"time"
 
 	"internBE.com/constantGlobal"
 	"internBE.com/dto"
 	"internBE.com/entity"
 	"internBE.com/repository"
+	"internBE.com/storage"
 )
 
 type transactionServiceImpl struct {
@@ -16,21 +18,6 @@ type transactionServiceImpl struct {
 
 func NewTransactionServiceImpl(transactionRepository *repository.TransactionRepository) TransactionService {
 	return &transactionServiceImpl{TransactionRepository: *transactionRepository}
-}
-func (t *transactionServiceImpl) convertCreateEntityToCreateResponeModel(
-	trans entity.Transaction) dto.GetMyTransactionReponse {
-	user, _ := t.TransactionRepository.GetUserByAccountNo(trans.AccountNoRsc)
-	Rsc := dto.AccountInfo{Name: user.Name, AccountNo: trans.AccountNoRsc}
-	user, _ = t.TransactionRepository.GetUserByAccountNo(trans.AccountNoDes)
-	Des := dto.AccountInfo{Name: user.Name, AccountNo: trans.AccountNoDes}
-
-	return dto.GetMyTransactionReponse{
-		Rersouce:    Rsc,
-		Destination: Des,
-		Message:     trans.Message,
-		Amount:      trans.Amount,
-		CreateAt:    trans.CreateAt.Format(constantGlobal.TimeLayout),
-	}
 }
 
 func (t *transactionServiceImpl) Create(req dto.CreateTransactionRequest) (dto.GetMyTransactionReponse, error) {
@@ -46,6 +33,9 @@ func (t *transactionServiceImpl) Create(req dto.CreateTransactionRequest) (dto.G
 	return t.convertCreateEntityToCreateResponeModel(trans), nil
 }
 func (t *transactionServiceImpl) GetAllTransRelatedNumberAcc(req dto.GetMyTransactionRequest) (responses []dto.GetMyTransactionReponse, err error) {
+	if err := t.IsExistAccount(req.AccountNoRsc); err != nil {
+		return nil, err
+	}
 	listTrans, err := t.TransactionRepository.GetAllTransRelatedNumberAcc(req.AccountNoRsc, req.Limit)
 	if err != nil {
 		return nil, err
@@ -57,6 +47,9 @@ func (t *transactionServiceImpl) GetAllTransRelatedNumberAcc(req dto.GetMyTransa
 
 }
 func (t *transactionServiceImpl) GetHistoryAccountNo(req dto.GetMyTransactionRequest) (responses []dto.AccountInfo, err error) {
+	if err := t.IsExistAccount(req.AccountNoRsc); err != nil {
+		return nil, err
+	}
 	list, err := t.TransactionRepository.GetHistoryAccountNo(req.AccountNoRsc, req.Limit)
 	if err != nil {
 		return nil, err
@@ -69,18 +62,15 @@ func (t *transactionServiceImpl) GetHistoryAccountNo(req dto.GetMyTransactionReq
 	}
 	return responses, nil
 }
-func (t *transactionServiceImpl) GetTransRevievedByNumberAcc(req dto.GetMyTransactionRequest) (responses []dto.GetMyTransactionReponse, err error) {
-	listTrans, err := t.TransactionRepository.GetTransRevievedByNumberAcc(req.AccountNoRsc, req.Limit)
-	if err != nil {
-		return nil, err
-	}
-	for _, trans := range listTrans {
-		responses = append(responses, t.convertCreateEntityToCreateResponeModel(trans))
-	}
-	return responses, nil
-}
 
 func (t *transactionServiceImpl) GetHistoryTransWith(req dto.GetTransactionFromToRequest) (responses []dto.GetMyTransactionReponse, err error) {
+	if err := t.IsExistAccount(req.AccountNo1); err != nil {
+		return nil, err
+	}
+	if err := t.IsExistAccount(req.AccountNo2); err != nil {
+		return nil, err
+	}
+
 	listTrans, err := t.TransactionRepository.
 		GetHistoryTransWith(req.AccountNo1, req.AccountNo2, req.Limit)
 	if err != nil {
@@ -105,6 +95,13 @@ func (t *transactionServiceImpl) GetHistoryTransBetweenDateWith(req dto.GetTrans
 	if timeStart.After(timeEnd) {
 		return nil, errors.New("time start after time end")
 	}
+	if err := t.IsExistAccount(req.AccountNo1); err != nil {
+		return nil, err
+	}
+	if err := t.IsExistAccount(req.AccountNo2); err != nil {
+		return nil, err
+	}
+
 	listTrans, err := t.TransactionRepository.
 		GetHistoryTransBetweenDateWith(req.AccountNo1, req.AccountNo2, timeStart, timeEnd, req.Limit)
 	if err != nil {
@@ -114,4 +111,56 @@ func (t *transactionServiceImpl) GetHistoryTransBetweenDateWith(req dto.GetTrans
 		responses = append(responses, t.convertCreateEntityToCreateResponeModel(trans))
 	}
 	return responses, nil
+}
+func (t *transactionServiceImpl) IsExistAccount(accountNo int) error {
+	accRepo := repository.NewAccountRepository(storage.GetDB())
+	if !accRepo.IsExistAccount(accountNo) {
+		msg := fmt.Sprintf("account no %d not found", accountNo)
+		return errors.New(msg)
+	}
+	return nil
+}
+
+func (t *transactionServiceImpl) GetStaticTransaction(req dto.
+	StaticTransactionRequest) (static dto.StaticTransactionResponse, err error) {
+	if err := t.IsExistAccount(req.AccountNo1); err != nil {
+		return static, err
+	}
+	if err := t.IsExistAccount(req.AccountNo2); err != nil {
+		return static, err
+	}
+	print("-----------")
+	static.Resource = t.convertToAccountDetailDTO(req.AccountNo1)
+	static.Destination = t.convertToAccountDetailDTO(req.AccountNo2)
+	static.StaticSended, _ = t.convertToStaticDetail(req.AccountNo1, req.AccountNo2)
+	static.StaticRecieved, _ = t.convertToStaticDetail(req.AccountNo2, req.AccountNo1)
+	return static, nil
+}
+
+func (t *transactionServiceImpl) convertToAccountDetailDTO(accountNo int) dto.AccountInfo {
+	user, _ := t.TransactionRepository.GetUserByAccountNo(accountNo)
+	return dto.AccountInfo{Name: user.Name, AccountNo: accountNo}
+}
+func (t *transactionServiceImpl) convertToStaticDetail(AccountNo1 int,
+	AccountNo2 int) (dto.StaticDetail, error) {
+	count, money, err := t.TransactionRepository.
+		GetStaticTransaction(AccountNo1, AccountNo2)
+
+	if err != nil {
+		return dto.StaticDetail{}, err
+	}
+	return dto.StaticDetail{CountTransaction: count, TotalMoney: money}, nil
+}
+func (t *transactionServiceImpl) convertCreateEntityToCreateResponeModel(
+	trans entity.Transaction) dto.GetMyTransactionReponse {
+	Rsc := t.convertToAccountDetailDTO(trans.AccountNoRsc)
+	Des := t.convertToAccountDetailDTO(trans.AccountNoDes)
+
+	return dto.GetMyTransactionReponse{
+		Resource:    Rsc,
+		Destination: Des,
+		Message:     trans.Message,
+		Amount:      trans.Amount,
+		CreateAt:    trans.CreateAt.Format(constantGlobal.TimeLayout),
+	}
 }

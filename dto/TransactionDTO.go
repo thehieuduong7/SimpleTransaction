@@ -27,7 +27,7 @@ type GetTransactionFromToTimeRequest struct {
 }
 
 type GetMyTransactionReponse struct {
-	Rersouce    AccountInfo `json:"Rersouce"`
+	Resource    AccountInfo `json:"Resource"`
 	Destination AccountInfo `json:"Destination"`
 	Message     string      `json:"message"`
 	Amount      float64     `json:"amount"`
@@ -36,4 +36,20 @@ type GetMyTransactionReponse struct {
 type AccountInfo struct {
 	Name      string `json:"name"`
 	AccountNo int    `json:"account_no"`
+}
+type StaticTransactionRequest struct {
+	AccountNo1 int `json:"account_no_1"`
+	AccountNo2 int `json:"account_no_2"`
+}
+
+type StaticTransactionResponse struct {
+	Resource       AccountInfo  `json:"resource"`
+	Destination    AccountInfo  `json:"destination"`
+	StaticSended   StaticDetail `json:"static_sended"`
+	StaticRecieved StaticDetail `json:"count_recieved_transaction"`
+}
+
+type StaticDetail struct {
+	CountTransaction int64   `json:"count_transaction"`
+	TotalMoney       float64 `json:"total_money"`
 }

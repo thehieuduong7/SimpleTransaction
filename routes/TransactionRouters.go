@@ -19,9 +19,9 @@ func TransactionRoute(r *gin.Engine) *gin.Engine {
 	transRouter.POST("", transController.Create)
 	transRouter.POST("/MyTrans", transController.GetAllTransRelatedNumberAcc)
 	transRouter.POST("/GetHistoryAccountNo", transController.GetHistoryAccountNo)
-	transRouter.POST("/TransRecieveBy", transController.GetTransRevievedByNumberAcc)
 	transRouter.POST("/TransFromTo", transController.GetTransFromTo)
 	transRouter.POST("/GetTransDateToDate", transController.GetTransDateToDate)
+	transRouter.POST("/GetStaticTransaction", transController.GetStaticTransaction)
 
 	return r
 }

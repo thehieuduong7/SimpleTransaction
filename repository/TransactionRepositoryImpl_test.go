@@ -2,34 +2,15 @@ package repository
 
 import (
 	"testing"
+	"time"
 
-	"internBE.com/entity"
+	"internBE.com/constantGlobal"
 	"internBE.com/storage"
 )
 
 func Test_transactionRepositoryImpl_Create(t *testing.T) {
-	type args struct {
-		trans *entity.Transaction
-	}
-	tests := []struct {
-		name    string
-		tr      TransactionRepository
-		args    args
-		wantErr bool
-	}{
-		// TODO: Add test cases.
-		{
-			name:    "1",
-			tr:      NewTransactionRepositoryImpl(storage.GetDB()),
-			args:    args{trans: &entity.Transaction{AccountNoRsc: 2, AccountNoDes: 3, Amount: 3, Message: "hello"}},
-			wantErr: true,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if err := tt.tr.Create(tt.args.trans); (err != nil) != tt.wantErr {
-				t.Errorf("transactionRepositoryImpl.Create() error = %v, wantErr %v", err, tt.wantErr)
-			}
-		})
-	}
+	tr := NewTransactionRepositoryImpl(storage.GetDB())
+	time1, _ := time.Parse(constantGlobal.TimeLayout, "2022-08-01 20:41:14")
+	time2, _ := time.Parse(constantGlobal.TimeLayout, "2022-08-15 20:41:14")
+	t.Log(tr.GetHistoryTransBetweenDateWith(2, 1, time1, time2, -1))
 }

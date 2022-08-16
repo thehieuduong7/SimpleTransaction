@@ -17,7 +17,7 @@ func NewAccountRepository(dbConn *gorm.DB) AccountRepository {
 
 func (db *accountConnection) UpdateAccount(account *models.Account) (models.Account, error) {
 	var account1 models.Account
-	err := db.connection.Model(models.Account{}).Where("account_number = ?", account.AccountNumber).Updates(&account).Error
+	err := db.connection.Model(models.Account{}).Where("account_no = ?", account.AccountNumber).Updates(&account).Error
 	if err != nil {
 		return account1, err
 	}
@@ -25,7 +25,7 @@ func (db *accountConnection) UpdateAccount(account *models.Account) (models.Acco
 }
 
 func (db *accountConnection) DeleteAccount(id int) error {
-	err := db.connection.Model(models.Account{}).Where("account_number = ?", id).Update("is_active", false).Error
+	err := db.connection.Model(models.Account{}).Where("account_no = ?", id).Update("is_active", false).Error
 	if err != nil {
 		return err
 	}
@@ -40,7 +40,7 @@ func (db *accountConnection) GetAccountByUserId(id int) []models.Account {
 
 func (db *accountConnection) GetAccountById(id int) models.Account {
 	var account models.Account
-	db.connection.Find(&account, "account_number = ? AND is_active= ? ", id, true)
+	db.connection.Find(&account, "account_no = ? AND is_active= ? ", id, true)
 	return account
 }
 

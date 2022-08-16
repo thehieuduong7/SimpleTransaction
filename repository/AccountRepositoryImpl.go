@@ -54,6 +54,6 @@ func (db *accountConnection) CreateAccount(account *models.Account) (*models.Acc
 }
 func (db *accountConnection) IsExistAccount(AccountNo int) bool {
 	var account models.Account
-	err := db.connection.FindFirst(&account, "account_no = ?", AccountNo).Error
+	err := db.connection.First(&account, "account_no = ?", AccountNo).Error
 	return err == nil
 }

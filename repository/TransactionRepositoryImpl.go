@@ -18,7 +18,7 @@ func NewTransactionRepositoryImpl(db *gorm.DB) TransactionRepository {
 }
 func plusMoneyAccount(accountNo int, money float64, tx *gorm.DB) error {
 	account := entity.Account{}
-	if err := tx.First(&account, accountNo).Error; err != nil {
+	if err := tx.FindFirst(&account, accountNo).Error; err != nil {
 		return err
 	} else if !account.IsActive {
 		msg := fmt.Sprintf("Account no %d is not active", accountNo)
@@ -112,11 +112,11 @@ func (t *transactionRepositoryImpl) GetHistoryTransBetweenDateWith(AccountNo1 in
 
 func (t *transactionRepositoryImpl) GetUserByAccountNo(accountNo int) (*entity.User, error) {
 	account := entity.Account{}
-	if err := t.DB.First(&account, accountNo).Error; err != nil {
+	if err := t.DB.FindFirst(&account, accountNo).Error; err != nil {
 		return nil, err
 	}
 	user := entity.User{}
-	if err := t.DB.First(&user, account.UserId).Error; err != nil {
+	if err := t.DB.FindFirst(&user, account.UserId).Error; err != nil {
 		return nil, err
 	}
 	return &user, nil

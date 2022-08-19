@@ -9,7 +9,6 @@ import (
 	"internBE.com/dto"
 	"internBE.com/entity"
 	"internBE.com/repository"
-	"internBE.com/storage"
 )
 
 type transactionServiceImpl struct {
@@ -118,8 +117,7 @@ func (t *transactionServiceImpl) GetHistoryTransBetweenDateWith(req dto.GetTrans
 	return responses, nil
 }
 func (t *transactionServiceImpl) IsExistAccount(accountNo int) error {
-	accRepo := repository.NewAccountRepository(storage.GetDB())
-	if !accRepo.IsExistAccount(accountNo) {
+	if !t.AccountRepository.IsExistAccount(accountNo) {
 		msg := fmt.Sprintf("account no %d not found", accountNo)
 		return errors.New(msg)
 	}
